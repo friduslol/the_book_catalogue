@@ -2,13 +2,15 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    align-items: center;
     background-color: var(--theme--color);
-    padding: 0.8rem;
+    height: 10vh;
 }
 
 .logoWrapper {
     max-height: 8066px;
     max-width: 78px;
+    margin-left: 10px;
 }
 
 .img{

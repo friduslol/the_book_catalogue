@@ -1,12 +1,12 @@
 .footerContainer {
     background-color: var(--theme--color);
-    height: 10rem;
+    height: 25vh;
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 1rem;
-    position: absolute;
-    bottom: 0;
+    /* position: absolute;
+    bottom: 0; */
     width: 100%;
 }
 
@@ -29,7 +29,7 @@
 @media (min-width: 768px) {
     .footerContainer {
         justify-content: space-around;
-        height: 14rem;
+        height: 27vh;
     }
 
     .socialsWrapper {
