@@ -7,7 +7,7 @@ const Navbar = () => {
     return(
         <div className={Styles.navbarContainer}>
             <div className={Styles.logoWrapper}>
-                <img className={Styles.img} src={process.env.PUBLIC_URL + '/logo.png'} alt="logo"/>
+                <Link to="/"><img className={Styles.img} src={process.env.PUBLIC_URL + '/logo.png'} alt="logo"/></Link>
             </div>
             <div className={Styles.linksWrapper}>
                 <Link className={Styles.navLink} to="signIn">Sign in</Link>
