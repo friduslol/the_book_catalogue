@@ -1,0 +1,86 @@
+.cardContainer {
+    background-color: var(--theme--color);
+    width: 270px;
+    margin: 0 auto;
+    border-radius: 2px;
+    margin-bottom: 2rem;
+    padding-bottom: 1.3rem;
+}
+
+.listTitleWrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-end;
+    padding: 2rem;
+}
+
+.listTitle {
+    font-family: var(--main--font);
+    color: var(--light--color);
+    font-size: 1.2rem;
+    line-height: 0.7;
+    padding-right: 0.2rem;
+}
+
+.removeBtn:hover, .bookTitle:hover {
+    cursor: pointer;
+}
+
+.booksImg {
+    height: 25px;
+}
+
+.bookWrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.7rem;
+}
+
+.bookTitle {
+    font-family: var(--main--font);
+    color: var(--light--color);
+    font-size: 1rem;
+}
+
+.removeBtn {
+    height: 15px;
+}
+
+@media (min-width: 768px) {
+    .cardContainer {
+        width: 450px;
+        padding-bottom: 2.5rem;
+    }
+
+    .listTitleWrapper {
+        padding-top: 2.7rem;
+    }
+
+    .listTitle {
+        font-size: 1.7rem;
+    }
+
+    .bookWrapper {
+        padding-right: 1.5rem;
+        padding-left: 1.5rem;
+    }
+
+    .bookTitle {
+        font-size: 1.2rem;
+    }
+
+    .removeBtn {
+        height: 20px;
+    }
+}
+
+@media (min-width: 1200px) {
+    .cardContainer {
+        width: 390px;
+
+    }
+
+}

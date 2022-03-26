@@ -1,0 +1,65 @@
+.userContainer {
+    min-height: 65vh;
+}
+
+.sectionWrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 2rem;
+}
+
+.userDataWrapper {
+    padding-left: 1rem;
+    padding-top: 2rem;
+}
+
+.userInfo {
+    font-family: var(--main--font);
+    color: var(--theme--color);
+    font-size: 1rem;
+}
+
+.deleteAccBtn {
+    all: unset;
+    font-family: var(--main--font);
+    color: var(--theme--color);
+    font-size: 0.65rem;
+    padding-right: 0.2rem;
+    padding-top: 0.2rem;
+}
+
+.deleteAccBtn:hover {
+    cursor: pointer;
+}
+
+@media (min-width: 768px) {
+
+    .userDataWrapper {
+        padding-left: 1.5rem;
+        padding-top: 2.5rem;
+    }
+
+    .userInfo {
+        font-size: 1.2rem;
+    }
+
+    .deleteAccBtn {
+        font-size: 0.80rem;
+        padding-right: 0.7rem;
+        padding-top: 0.5rem;
+    }
+}
+
+@media (min-width: 1200px) {
+    .userDataWrapper {
+        padding-left: 5rem;
+        padding-top: 5rem;
+    }
+    .bookListsContainer {
+        display: flex;
+        max-width: 1500px;
+        margin: 0 auto;
+    }
+}
