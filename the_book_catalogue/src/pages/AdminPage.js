@@ -1,8 +1,18 @@
 import Styles from "../styles/Admin.module.css"
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
+import { use } from "../../api/routes/bookRoutes";
 
 const AdminPage = () => {
     const [input, setInput] = useState('')
+    const titleRef = useRef()
+    const descRef = useRef()
+    const authorRef = useRef()
+    const isbnRef = useRef()
+    const pubYearRef = useRef()
+    const pagesRef = useRef()
+    const categoryRef = useRef()
+    const coverImgRef = useRef()
+
 
     const uploadImg = () => {
        let ref = document.getElementById('fileUpload')
@@ -23,6 +33,21 @@ const AdminPage = () => {
        }
    }, [input])
 
+   const handleAddBook = async () => {
+
+        let bookObj = {
+            title: titleRef,
+            description: descRef,
+            author: authorRef,
+            isbn: isbnRef,
+            publicationYear: pubYearRef,
+            pages: pagesRef,
+            category: categoryRef,
+            rating: 0,
+            coverImg: coverImgRef,
+        }
+   }
+
     return(
         <div className={Styles.adminContainer}>
             <div className={Styles.formsWrapper}>
@@ -40,7 +65,7 @@ const AdminPage = () => {
 
                     </div>
 
-                    <button className={Styles.actionBtn}>Add</button>
+                    <button onClick={handleAddBook} className={Styles.actionBtn}>Add</button>
                 </form>
 
                 <form className={Styles.formWrapper}>
