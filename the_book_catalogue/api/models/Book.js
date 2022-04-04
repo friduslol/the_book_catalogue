@@ -2,15 +2,16 @@ const mongoose = require("mongoose");
 
 const BookSchema = new Schema(
     {
-        bookid: {},
-        title: {},
-        description: {},
-        author: {},
-        isbn: {},
-        publicationYear: {},
-        pages: {},
-        category: {},
-        rating: {},
+        bookid: String,
+        title: String,
+        description: String,
+        author: String,
+        isbn: String,
+        publicationYear: Number,
+        pages: Number,
+        category: String,
+        rating: Number,
+        coverImg: String
     }
 );
 
