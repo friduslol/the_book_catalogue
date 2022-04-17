@@ -5,10 +5,6 @@ const port = 3001;
 
 //mongoose connection
 const mongoDB = "mongodb+srv://dbTest:dbTestPass@cluster0.nuenf.mongodb.net/the_book_catalogue?retryWrites=true&w=majority"
-mongoose.connect(mongoDB, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-});
 
 //routes
 const bookRoutes = require("./routes/bookRoutes");
@@ -19,20 +15,22 @@ const app = express();
 
 app.use(express.json());
 
-
-//error handeling
-var db = mongoose.connection;
-db.on('error', console.error.bind(console, 'MongoDB connection error:'));
-
+//mongo DB setup
+mongoose.connect(mongoDB, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+}).then(() => {
+    console.log("MongoDB connected...");
+}).catch((err) => {
+    console.log(err);
+});
 
 //routes setup
-app.use("api/v1/book", bookRoutes);
+app.use("/api/v1/books", bookRoutes);
 
-//start Server
 app.listen(port, (err) => {
-    if (err) {
-      console.error("The server could not start.");
-      console.log(err);
+    if(err) {
+        console.log("Server could not start!", err);
     }
-    console.log(`Listening on port ${port}`);
-  });
+    console.log("Listening on port", port);
+});

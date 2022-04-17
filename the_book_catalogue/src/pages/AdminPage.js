@@ -1,8 +1,9 @@
 import Styles from "../styles/Admin.module.css"
-import { useState, useEffect, useRef } from "react";
-
+import { useState, useEffect, useRef, useContext } from "react"
+import {  BookContext } from "../contexts/BookContext"
 
 const AdminPage = () => {
+    const { addBook } = useContext(BookContext)
     const [coverImg, setCoverImg] = useState(null)
     const titleRef = useRef()
     const descRef = useRef()
@@ -25,7 +26,7 @@ const AdminPage = () => {
     }
    const handleAddBook = async (e) => {
 
-    e.preventDefault()
+        e.preventDefault()
 
         let bookObj = {
             title: titleRef.current.value,
@@ -40,7 +41,11 @@ const AdminPage = () => {
         }
 
         console.log("bookObj:", bookObj)
-   }
+
+        let addedBookResult = await addBook(bookObj)
+
+        console.log("Res:", addedBookResult);
+    }
 
     return(
         <div className={Styles.adminContainer}>
