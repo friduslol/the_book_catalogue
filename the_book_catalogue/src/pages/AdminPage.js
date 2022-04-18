@@ -3,7 +3,7 @@ import { useState, useEffect, useRef, useContext } from "react"
 import {  BookContext } from "../contexts/BookContext"
 
 const AdminPage = () => {
-    const { addBook } = useContext(BookContext)
+    const { addBook, removeBook } = useContext(BookContext)
     const [coverImg, setCoverImg] = useState(null)
     const titleRef = useRef()
     const descRef = useRef()
@@ -12,6 +12,7 @@ const AdminPage = () => {
     const pubYearRef = useRef()
     const pagesRef = useRef()
     const categoryRef = useRef()
+    const isbnRemoveRef = useRef()
 
     const uploadImg = () => {
         let ref = document.getElementById('fileUpload')
@@ -47,6 +48,17 @@ const AdminPage = () => {
         console.log("Res:", addedBookResult);
     }
 
+    const handleRemoveBook = async (e) => {
+
+        e.preventDefault()
+
+        console.log("isbn", isbnRemoveRef)
+
+        let removedBookResult = await removeBook(isbnRemoveRef.current.value)
+
+        console.log("Res, removed book:", removedBookResult)
+    }
+
     return(
         <div className={Styles.adminContainer}>
             <div className={Styles.formsWrapper}>
@@ -58,7 +70,7 @@ const AdminPage = () => {
                     <input className={Styles.input} type="text" placeholder="Description" ref={descRef} required/>
                     <input className={Styles.input} type="text" placeholder="Category" ref={categoryRef} required/>
                     <input className={Styles.input} type="number" placeholder="Pages" ref={pagesRef} required/>
-                    <input className={Styles.input} type="text" placeholder="Isbn" ref={isbnRef} required/>
+                    <input className={Styles.input} type="text" placeholder="ISBN" ref={isbnRef} required/>
 
                     <div className={Styles.uploadImgWrapper}>
                         <input type="button" className={Styles.uploadButton} value="Choose image"  onClick={() => uploadImg()}/>
@@ -78,11 +90,11 @@ const AdminPage = () => {
                     <button type="submit" className={Styles.actionBtn}>Add</button>
                 </form>
 
-                <form className={Styles.formWrapper}>
+                <form className={Styles.formWrapper} onSubmit={handleRemoveBook}>
                     <h1 className={Styles.formHeader} >Remove a book</h1>
-                    <input className={Styles.input} type="number" placeholder="idNumber" />
-                    <input className={Styles.input} type="Name" placeholder="Title"/>
-                    <button className={Styles.actionBtn}>Remove</button>
+                    <input className={Styles.input} type="text" placeholder="ISBN Number" ref={isbnRemoveRef} required />
+                    {/* <input className={Styles.input} type="Name" placeholder="Title"/> */}
+                    <button type="submit" className={Styles.actionBtn}>Remove</button>
                 </form>
             </div>
         </div>

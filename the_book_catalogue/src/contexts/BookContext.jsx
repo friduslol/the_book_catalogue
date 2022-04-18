@@ -18,11 +18,28 @@ const BookContextProvider = (props) => {
         } catch(err) {
             return err
         }
-
     }
 
+    const removeBook = async (ISBN) => {
+        console.log("isbn in context", ISBN)
+        try {
+            let result = await fetch(`/api/v1/books/delete/${ISBN}`, {
+                method: "DELETE",
+                headers: {
+                    "content-type": "application/json",
+                }})
+            result = await result.json()
+            return result
+        } catch(err) {
+            return err
+        }
+    }
+
+
+
     const values = {
-        addBook
+        addBook,
+        removeBook
     }
 
     return(
