@@ -1,6 +1,7 @@
 import Styles from "../styles/Start.module.css"
 import { useState, useEffect, useRef, useContext } from "react"
 import {  BookContext } from "../contexts/BookContext"
+import BooksWrapper from "../components/BooksWrapper"
 
 const StartPage = () => {
     const { getAllBooks, books } = useContext(BookContext)
@@ -27,7 +28,9 @@ const StartPage = () => {
             </div>
             <h1 className={Styles.header}>In the spotlight right now...</h1>
 
-            <div className={Styles.booksContainer}>
+            <BooksWrapper />
+
+            {/* <div className={Styles.booksContainer}>
 
                     <img className={Styles.bookImg} src="https://hips.hearstapps.com/digitalspyuk.cdnds.net/15/50/1449878132-9781781100264.jpg" alt="bookcover"/>
 
@@ -47,7 +50,7 @@ const StartPage = () => {
                     <img className={Styles.bookImg} src="https://anylang.net/sites/default/files/covers/harry-potter-and-order-phoenix.jpg" alt="bookcover"/>
 
                     <img className={Styles.bookImg} src="https://anylang.net/sites/default/files/covers/harry-potter-and-order-phoenix.jpg" alt="bookcover"/>
-            </div>
+            </div> */}
         </div>
     )
 }
