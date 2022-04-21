@@ -22,7 +22,23 @@ const removeBook = async (req, res) => {
     }
 }
 
+const getAllBooks = async (req, res) => {
+    try {
+        let books = await Book.find().exec()
+        if (books.length === 0) {
+            res.json({ error: "No books found!" })
+            return
+        }
+        res.status(200).json(books)
+        return
+    } catch(err) {
+        res.status(400).json({ error: err })
+        return
+    }
+}
+
 module.exports = {
     addBook,
-    removeBook
+    removeBook,
+    getAllBooks
 }

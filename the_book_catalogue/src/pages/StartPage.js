@@ -1,6 +1,20 @@
 import Styles from "../styles/Start.module.css"
+import { useState, useEffect, useRef, useContext } from "react"
+import {  BookContext } from "../contexts/BookContext"
 
 const StartPage = () => {
+    const { getAllBooks, books } = useContext(BookContext)
+
+    useEffect(() => {
+        getAllBooks()
+
+        // eslint-disable-next-line
+    }, [])
+
+    useEffect(() => {
+        console.log("books", books)
+    }, [books])
+
     return(
         <div className={Styles.startContainer}>
             <div className={Styles.heroWrapper}>
