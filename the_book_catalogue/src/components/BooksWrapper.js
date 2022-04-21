@@ -6,6 +6,7 @@ import BookCard from "./BookCard"
 
 const BooksWrapper = () => {
     const { books } = useContext(BookContext)
+    
     return (
         <div className={Styles.booksContainer}>
             {books.length

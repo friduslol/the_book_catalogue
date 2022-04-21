@@ -11,7 +11,7 @@ const BookSchema = new Schema(
         pages: Number,
         category: String,
         rating: String,
-        coverImg: String
+        coverImg: String,
     }
 );
 
