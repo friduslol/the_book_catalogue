@@ -8,9 +8,10 @@ const BooksWrapper = () => {
     const { books } = useContext(BookContext)
     return (
         <div className={Styles.booksContainer}>
-            {books.map((book, i) => (
-                <BookCard key={i} data={book} />
-            ))}
+            {books.length
+            ? books.map((book, i) => (
+                <BookCard key={i} data={book} />))
+            : <p>No books available...</p>}
         </div>
     )
 }
