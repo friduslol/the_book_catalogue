@@ -4,6 +4,7 @@ export const BookContext = createContext()
 
 const BookContextProvider = (props) => {
     const [books, setBooks] = useState([]);
+    const [book, setBook] = useState(null);
 
     const addBook = async (bookObj) => {
         try {
@@ -48,11 +49,23 @@ const BookContextProvider = (props) => {
         }
     }
 
+    const getBookById = async (bookId) => {
+        try {
+            let result = await fetch(`/api/v1/books/${bookId}`)
+            result = await result.json()
+            setBook(result)
+        } catch(err) {
+            return err
+        }
+    }
+
     const values = {
         addBook,
         removeBook,
         getAllBooks,
-        books
+        books,
+        getBookById,
+        book,
     }
 
     return(

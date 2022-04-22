@@ -37,8 +37,25 @@ const getAllBooks = async (req, res) => {
     }
 }
 
+const getBookById = async (req, res) => {
+    try {
+        Book.findById(req.params.bookId).exec((err, book) => {
+            if(err) {
+                res.status(404).json({ error: err })
+                return
+            }
+            res.status(200).json(book)
+            return
+        })
+    } catch(err) {
+        res.status(400).json({ error: err })
+        return
+    }
+}
+
 module.exports = {
     addBook,
     removeBook,
-    getAllBooks
+    getAllBooks,
+    getBookById
 }
