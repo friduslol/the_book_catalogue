@@ -1,10 +1,10 @@
 import Styles from "../styles/Admin.module.css"
-import { useState, useEffect, useRef, useContext } from "react"
+import { useRef, useContext } from "react"
 import {  BookContext } from "../contexts/BookContext"
 
 const AdminPage = () => {
     const { addBook, removeBook } = useContext(BookContext)
-    const [coverImg, setCoverImg] = useState(null)
+    const coverImgRef = useRef(null)
     const titleRef = useRef()
     const descRef = useRef()
     const authorRef = useRef()
@@ -14,17 +14,17 @@ const AdminPage = () => {
     const categoryRef = useRef()
     const isbnRemoveRef = useRef()
 
-    const uploadImg = () => {
-        let ref = document.getElementById('fileUpload')
-        ref.click()
-    }
+//     const uploadImg = () => {
+//         let ref = document.getElementById('fileUpload')
+//         ref.click()
+//     }
 
-   const handleFileChange = (e) => {
-        if (e.target.files[0]) {
-            setCoverImg(e.target.files[0])
-        }
+//    const handleFileChange = (e) => {
+//         if (e.target.files[0]) {
+//             setCoverImg(e.target.files[0])
+//         }
 
-    }
+//     }
    const handleAddBook = async (e) => {
 
         e.preventDefault()
@@ -38,7 +38,7 @@ const AdminPage = () => {
             pages: pagesRef.current.value,
             category: categoryRef.current.value,
             rating: 0,
-            coverImg: coverImg ? coverImg : "No cover available",
+            coverImg: coverImgRef.current.value ? coverImgRef.current.value : "No cover available",
         }
 
         console.log("bookObj:", bookObj)
@@ -71,8 +71,10 @@ const AdminPage = () => {
                     <input className={Styles.input} type="text" placeholder="Category" ref={categoryRef} required/>
                     <input className={Styles.input} type="number" placeholder="Pages" ref={pagesRef} required/>
                     <input className={Styles.input} type="text" placeholder="ISBN" ref={isbnRef} required/>
+                    <input className={Styles.input} type="text" placeholder="Book cover URL" ref={coverImgRef} />
 
-                    <div className={Styles.uploadImgWrapper}>
+
+                    {/* <div className={Styles.uploadImgWrapper}>
                         <input type="button" className={Styles.uploadButton} value="Choose image"  onClick={() => uploadImg()}/>
                         <input type="file" name="upload" accept="image/*" id="fileUpload" className={Styles.fileUpload}  onChange={handleFileChange}/>
                         <div className={Styles.filenameWrapper}>
@@ -84,8 +86,7 @@ const AdminPage = () => {
                                 }
                             </span>
                         </div>
-
-                    </div>
+                    </div> */}
 
                     <button type="submit" className={Styles.actionBtn}>Add</button>
                 </form>

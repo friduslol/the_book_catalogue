@@ -3,6 +3,7 @@ import { createContext, useState, useEffect } from "react"
 export const BookContext = createContext()
 
 const BookContextProvider = (props) => {
+    const [books, setBooks] = useState([]);
 
     const addBook = async (bookObj) => {
         try {
@@ -21,7 +22,6 @@ const BookContextProvider = (props) => {
     }
 
     const removeBook = async (ISBN) => {
-        console.log("isbn in context", ISBN)
         try {
             let result = await fetch(`/api/v1/books/delete/${ISBN}`, {
                 method: "DELETE",
@@ -35,11 +35,24 @@ const BookContextProvider = (props) => {
         }
     }
 
-
+    const getAllBooks = async () => {
+        try {
+            let result = await fetch("/api/v1/books")
+            result = await result.json()
+            if(result.length === 0) {
+                console.log("No books in database!")
+            }
+            setBooks(result)
+        } catch(err) {
+            return err
+        }
+    }
 
     const values = {
         addBook,
-        removeBook
+        removeBook,
+        getAllBooks,
+        books
     }
 
     return(
