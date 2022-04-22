@@ -53,9 +53,33 @@ const getBookById = async (req, res) => {
     }
 }
 
+const inputSearch = async (req, res) => {
+    try {
+
+        let searchString =  new RegExp(`${req.body.search}`, 'gi')
+        console.log("search string in controller", searchString)
+
+        let result = await Book.find({$or:
+            [
+                { "title": {$in: searchString} },
+                { "author": {$in: searchString} },
+                { "publicationYear": {$in: searchString} },
+            ]
+        }).exec()
+        console.log("res", result)
+        res.status(200).json(result)
+        return
+
+    } catch(err) {
+        res.status(400).json({ error: err })
+        return
+    }
+}
+
 module.exports = {
     addBook,
     removeBook,
     getAllBooks,
-    getBookById
+    getBookById,
+    inputSearch
 }
