@@ -49,9 +49,9 @@
     margin: 1rem;
 }
 
-.createBtn:hover {
+/* .createBtn:hover {
     background-color: var(--dark--color);
-}
+} */
 
 
 @media (min-width: 768px) {

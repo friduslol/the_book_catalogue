@@ -1,6 +1,6 @@
 import React from 'react'
 import Styles from "../styles/Start.module.css"
-import { useNavigate} from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 
 const BookCard = (props) => {
     const navigateHook = useNavigate()

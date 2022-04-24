@@ -8,6 +8,7 @@ const mongoDB = "mongodb+srv://dbTest:dbTestPass@cluster0.nuenf.mongodb.net/the_
 
 //routes
 const bookRoutes = require("./routes/bookRoutes");
+const userRoutes = require("./routes/userRoutes");
 
 
 //server setup
@@ -27,6 +28,7 @@ mongoose.connect(mongoDB, {
 
 //routes setup
 app.use("/api/v1/books", bookRoutes);
+app.use("api/vi/user", userRoutes);
 
 app.listen(port, (err) => {
     if(err) {
