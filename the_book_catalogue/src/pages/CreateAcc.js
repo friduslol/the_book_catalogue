@@ -23,7 +23,7 @@ const CreateAcc = () => {
         setError(null)
 
         let userObj = {
-            email: passwordRef.current.value,
+            email: emailRef.current.value,
             userName: userNameRef.current.value,
             password: passwordRef.current.value
         }
@@ -32,7 +32,8 @@ const CreateAcc = () => {
         let createUserResult = await createUser(userObj)
 
         if(createUserResult.error) {
-            setError(createUserResult.error)
+            console.log("error", createUserResult.error)
+            setError("error")
             setLoading(false)
             return
         }
@@ -40,7 +41,7 @@ const CreateAcc = () => {
         if(createUserResult.success) {
             setLoading(false)
             setError(null)
-            navigateHook(`/book/${createUserResult._id}`)
+            // navigateHook(`/book/${createUserResult._id}`)
             return
         }
     }

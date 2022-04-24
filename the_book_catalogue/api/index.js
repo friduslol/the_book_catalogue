@@ -1,5 +1,6 @@
 const express = require("express");
 const mongoose = require("mongoose");
+const session = require("express-session");
 
 const port = 3001;
 
@@ -14,7 +15,21 @@ const userRoutes = require("./routes/userRoutes");
 //server setup
 const app = express();
 
+//parsing req.body for server
 app.use(express.json());
+
+//creating cookie
+app.use(
+    session({
+    name: "Ballerina",
+    secret: "Cookie real tastyyy",
+    resave: false,
+    //will only create cookie on use
+    saveUninitialized: false,
+                            //will expire after one week
+    cookie: { secure: false, maxAge: 7*24*60*60*1000},
+    }),
+  );
 
 //mongo DB setup
 mongoose.connect(mongoDB, {
