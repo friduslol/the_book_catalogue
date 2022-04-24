@@ -3,13 +3,14 @@ import { createContext, useState, useEffect } from "react"
 export const UserContext = createContext()
 
 const UserContextProvider = (props) => {
-    const [user, setUser] = useState()
+    const [user, setUser] = useState(false)
+    const [loading, setLoading] = useState(true)
 
     useEffect(() => {
         getCookie()
     // eslint-disable-next-line
     }, [])
-    
+
     useEffect(() => {
         console.log("logged in user:", user)
     }, [user])
@@ -19,6 +20,7 @@ const UserContextProvider = (props) => {
             let result = await fetch("/api/v1/user/getCookie")
             result = await result.json()
             setUser(result)
+            setLoading(false)
             return result
         } catch(err) {
             return err
@@ -45,12 +47,13 @@ const UserContextProvider = (props) => {
 
     const values = {
         createUser,
-        getCookie
+        getCookie,
+        user
     }
 
     return(
         <UserContext.Provider value={values}>
-            {props.children}
+            {!loading && props.children}
         </UserContext.Provider>
     )
 }

@@ -14,6 +14,7 @@ import CreateAcc from "./pages/CreateAcc"
 import Footer from "./components/Footer"
 import BookContextProvider from "./contexts/BookContext"
 import UserContextProvider from "./contexts/UserContext"
+import RequireUserAcc from "./components/RequireUserAcc"
 
 
 function App() {
@@ -24,12 +25,16 @@ function App() {
           <BookContextProvider>
             <Navbar />
                 <Routes>
-                <Route path="/" element={<StartPage />} />
-                <Route path="/userPage" element={<UserPage />} />
-                <Route path="/adminPage" element={<AdminPage />} />
-                <Route path="/book/:id" element={<Book />} />
-                <Route path="/signIn" element={<SignIn />} />
-                <Route path="/createAccount" element={<CreateAcc />} />
+                  <Route path="/" element={<StartPage />} />
+                  <Route path="/adminPage" element={<AdminPage />} />
+                  <Route path="/book/:id" element={<Book />} />
+                  <Route path="/signIn" element={<SignIn />} />
+                  <Route path="/createAccount" element={<CreateAcc />} />
+                  <Route path="/userPage" element={
+                    <RequireUserAcc redirectTo="/">
+                      <UserPage />
+                    </RequireUserAcc>
+                  } />
                 </Routes>
               <Footer />
             </BookContextProvider>
