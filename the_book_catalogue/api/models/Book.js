@@ -7,7 +7,7 @@ const BookSchema = new Schema(
         description: String,
         author: String,
         isbn: String,
-        publicationYear: Number,
+        publicationYear: String,
         pages: Number,
         category: String,
         rating: String,

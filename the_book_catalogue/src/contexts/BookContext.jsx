@@ -3,8 +3,13 @@ import { createContext, useState, useEffect } from "react"
 export const BookContext = createContext()
 
 const BookContextProvider = (props) => {
-    const [books, setBooks] = useState([]);
-    const [book, setBook] = useState(null);
+    const [books, setBooks] = useState([])
+    const [book, setBook] = useState(null)
+    const [searchResult, setSerchResult] = useState([])
+
+    useEffect(() => {
+        console.log("search in context", searchResult)
+    },[searchResult])
 
     const addBook = async (bookObj) => {
         try {
@@ -59,6 +64,28 @@ const BookContextProvider = (props) => {
         }
     }
 
+    const inputSearch = async (searchString) => {
+        const searchObj = { search: searchString, }
+        try {
+            let result = await fetch("/api/v1/books/search", {
+                method: "POST",
+                headers: {
+                    "content-type": "application/json",
+                },
+                body: JSON.stringify(searchObj),
+            })
+            result = await result.json()
+            console.log("resulttt", result)
+            if(result) {
+                setSerchResult(result)
+                return
+            }
+
+        } catch(err) {
+            return err
+        }
+    }
+
     const values = {
         addBook,
         removeBook,
@@ -66,6 +93,9 @@ const BookContextProvider = (props) => {
         books,
         getBookById,
         book,
+        inputSearch,
+        searchResult,
+        setBooks
     }
 
     return(
