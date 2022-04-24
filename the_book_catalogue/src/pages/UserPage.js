@@ -1,7 +1,18 @@
 import Styles from "../styles/User.module.css"
-import ListCard from "../components/ListCard";
+import ListCard from "../components/ListCard"
+import { useNavigate } from "react-router-dom"
+import React, { useRef, useState, useContext } from "react"
+import { UserContext } from "../contexts/UserContext"
 
 const UserPage = () => {
+    const { logout } = useContext(UserContext)
+    const navigateHook = useNavigate()
+
+    const handleLogout = async () => {
+        await logout()
+		navigateHook('/')
+    }
+
     const arr = [
         {
             "list": "Favourites",
@@ -36,6 +47,7 @@ const UserPage = () => {
                 <div className={Styles.userDataWrapper}>
                     <p className={Styles.userInfo}>Test Testsson</p>
                     <p className={Styles.userInfo}>testtestsson@hotmail.com</p>
+                    <button className={Styles.logOutBtn} onClick={handleLogout}>Logout</button>
                 </div>
 
                 <button className={Styles.deleteAccBtn}>Delete Account</button>

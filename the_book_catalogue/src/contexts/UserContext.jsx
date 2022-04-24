@@ -27,7 +27,6 @@ const UserContextProvider = (props) => {
         }
     }
 
-
     const createUser = async (userObj) => {
         try {
             let result = await fetch("/api/v1/user/create", {
@@ -45,10 +44,23 @@ const UserContextProvider = (props) => {
         }
     }
 
+    const logout = async () => {
+        try {
+            let result = await fetch("/api/v1/user/logout")
+            await result.json()
+            await getCookie()
+            return result
+        } catch(err) {
+            return err
+        }
+    }
+
+
     const values = {
         createUser,
         getCookie,
-        user
+        user,
+        logout
     }
 
     return(

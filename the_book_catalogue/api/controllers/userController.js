@@ -1,5 +1,5 @@
 const User = require("../models/User");
-const Encrypt = require("../encrypt")
+const Encrypt = require("../encrypt");
 
 const getCookie = (req, res) => {
     res.json(req.session.user || null);
@@ -21,10 +21,21 @@ const createUser = async (req, res) => {
     } catch(err) {
         res.status(400).json({ error: err })
     }
+}
 
+const logout = async (req, res) => {
+    try {
+        if(req.session.user) {
+            delete req.session.user
+            return res.status(200).json({ success: "Logout successfull!" })
+        }
+    } catch(err) {
+        res.status(400).json({ error: err })
+    }
 }
 
 module.exports = {
     createUser,
     getCookie,
+    logout
 }
