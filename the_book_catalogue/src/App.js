@@ -6,7 +6,7 @@ import {
 } from "react-router-dom"
 import Navbar from "./components/Navbar"
 import StartPage from "./pages/StartPage"
-import UserPage from "./pages/AdminPage"
+import UserPage from "./pages/UserPage"
 import AdminPage from "./pages/AdminPage"
 import Book from "./pages/Book"
 import SignIn from "./pages/SignIn"
