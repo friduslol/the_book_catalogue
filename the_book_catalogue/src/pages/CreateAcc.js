@@ -15,7 +15,7 @@ const CreateAcc = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault()
-        
+
         if(passwordConfirmRef.current.value !==  passwordRef.current.value) {
             return setError("The password doesen't match!")
         }
@@ -28,17 +28,22 @@ const CreateAcc = () => {
             password: passwordRef.current.value
         }
 
-        try {
-            setLoading(true)
-            let createUserResult = await createUser(userObj)
-            navigateHook(`/book/${createUserResult._id}`)
+        setLoading(true)
+        let createUserResult = await createUser(userObj)
 
-        } catch (e) {
-            setError(e.message)
+        if(createUserResult.error) {
+            setError(createUserResult.error)
             setLoading(false)
+            return
+        }
+
+        if(createUserResult.success) {
+            setLoading(false)
+            setError(null)
+            navigateHook(`/book/${createUserResult._id}`)
+            return
         }
     }
-
 
     return(
         <div className={Styles.createAccContainer}>

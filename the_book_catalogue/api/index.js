@@ -28,7 +28,7 @@ mongoose.connect(mongoDB, {
 
 //routes setup
 app.use("/api/v1/books", bookRoutes);
-app.use("api/vi/user", userRoutes);
+app.use("/api/v1/user", userRoutes);
 
 app.listen(port, (err) => {
     if(err) {
