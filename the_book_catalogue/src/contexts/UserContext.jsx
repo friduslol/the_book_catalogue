@@ -55,12 +55,30 @@ const UserContextProvider = (props) => {
         }
     }
 
+    const login = async (userObj) => {
+        try {
+            let result = await fetch("/api/v1/user/login", {
+                method: "POST",
+                headers: {
+                    "content-type": "application/json",
+                },
+                body: JSON.stringify(userObj),
+            })
+            result = await result.json()
+            await getCookie()
+            return result
+        } catch(err) {
+            return err
+        }
+    }
+
 
     const values = {
         createUser,
         getCookie,
         user,
-        logout
+        logout,
+        login
     }
 
     return(

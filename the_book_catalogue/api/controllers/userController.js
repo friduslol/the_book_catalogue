@@ -34,8 +34,26 @@ const logout = async (req, res) => {
     }
 }
 
+const login = async (req, res) => {
+    try {
+        let exists = await User.exists({ email: req.body.email })
+        if(exists) {
+            let user = await User.findOne({ email: req.body.email }).exec()
+            if(user.password === Encrypt.encrypt(req.body.password)) {
+                user.password = null
+                req.session.user = user
+                return res.status(200).json({ success: "Login successfull!" })
+            }
+        }
+        return res.status(401).json({ error: "Bad credentials!" })
+    } catch(err) {
+        res.status(400).json({ error: err })
+    }
+}
+
 module.exports = {
     createUser,
     getCookie,
-    logout
+    logout,
+    login
 }

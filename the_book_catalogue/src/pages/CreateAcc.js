@@ -41,7 +41,7 @@ const CreateAcc = () => {
         if(createUserResult.success) {
             setLoading(false)
             setError(null)
-            // navigateHook(`/book/${createUserResult._id}`)
+            // navigateHook("/userPage")
             return
         }
     }
