@@ -2,10 +2,10 @@ import Styles from "../styles/Book.module.css"
 import React, { useState, useEffect, useContext } from 'react'
 import { Rating } from 'react-simple-star-rating'
 import { useParams } from "react-router-dom"
-import {  BookContext } from "../contexts/BookContext"
+import { BookContext } from "../contexts/BookContext"
 
 const Book = (props) => {
-    const { getBookById, book } = useContext(BookContext)
+    const { getBookById, book, addRating } = useContext(BookContext)
     const [rating, setRating] = useState(0)
     const { id } = useParams()
 
@@ -18,11 +18,16 @@ const Book = (props) => {
     }, [book])
 
 
-     // Catch Rating value
-//   const handleRating = (rate: rating) => {
-//     setRating(rate)
-//     // other logic
-//   }
+     //Catch Rating value
+    const handleRating = async (newRating) => {
+
+        let ratingObj = {
+            rating: newRating,
+            id: book._id
+        }
+        let addRatingResult = await addRating(ratingObj)
+        console.log("Rating result", addRatingResult)
+    }
 
     return(
         <div>
@@ -36,7 +41,10 @@ const Book = (props) => {
                                 <span className={Styles.text}>Year of puplication: {book.publicationYear}</span>
                                 <span className={Styles.text}>Author: {book.author}</span>
                                 <div className={Styles.ratingWrapper}>
-                                    <Rating ratingValue={rating} /* Available Props */ />
+                                    <Rating onClick={handleRating} ratingValue={rating} /* Available Props */ />
+                                    {rating > 0 ?
+                                     (<p>Your rating is {rating} aout off 100%</p>)
+                                    : <></>}
                                 </div>
                             </div>
                             <div className={Styles.aboutWrapper}>

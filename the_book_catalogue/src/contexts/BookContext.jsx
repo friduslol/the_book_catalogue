@@ -86,6 +86,23 @@ const BookContextProvider = (props) => {
         }
     }
 
+    const addRating = async (ratingObj)  => {
+        try {
+            let result = await fetch("/api/v1/books/addRating", {
+                method: "PUT",
+                headers: {
+                    "content-type": "application/json",
+                },
+                body: JSON.stringify(ratingObj),
+            })
+            result = await result.json()
+            return result
+        } catch(err) {
+            return err
+        }
+
+    }
+
     const values = {
         addBook,
         removeBook,
@@ -95,7 +112,8 @@ const BookContextProvider = (props) => {
         book,
         inputSearch,
         searchResult,
-        setBooks
+        setBooks,
+        addRating
     }
 
     return(
