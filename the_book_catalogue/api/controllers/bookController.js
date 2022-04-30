@@ -81,14 +81,15 @@ const addRating = async (req, res) => {
     try {
         let exists = await Book.exists({ _id: req.body.id })
         if(exists) {
-          Book.updateOne(
-              { _id: req.body.id },
-              { rating: req.body.rating }
-          ).exec()
-        }
+          Book.updateOne({ _id: req.body.id
+        }, {
+            $set: {
+                rating: req.body.rating
+            }
+        }).exec()}
         res.status(200).json({ success: "Rating updated!" })
-        return
     } catch(err) {
+        console.log(err)
         res.status(400).json({ error: err })
         return
     }

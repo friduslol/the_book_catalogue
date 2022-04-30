@@ -12,7 +12,10 @@ const BookSchema = new Schema(
         category: String,
         rating: String,
         coverImg: String,
-        rating: Number
+        rating: {
+            weight: Number,
+            count: Number
+        }
     }
 );
 

@@ -3,30 +3,36 @@ import React, { useState, useEffect, useContext } from 'react'
 import { Rating } from 'react-simple-star-rating'
 import { useParams } from "react-router-dom"
 import { BookContext } from "../contexts/BookContext"
+import { setuid } from "process"
 
 const Book = (props) => {
     const { getBookById, book, addRating } = useContext(BookContext)
-    const [rating, setRating] = useState(0)
     const { id } = useParams()
+    const [update, setUpdate] = useState()
 
     useEffect(() => {
         getBookById(id)
     }, [])
 
     useEffect(() => {
+        getBookById(id)
+    }, [update])
+
+    useEffect(() => {
         console.log("book", book)
     }, [book])
-
 
      //Catch Rating value
     const handleRating = async (newRating) => {
 
+        let w = book.rating.weight += 1
+        let c = book.rating.count + newRating
         let ratingObj = {
-            rating: newRating,
+            rating: {weight: w, count: c},
             id: book._id
         }
         let addRatingResult = await addRating(ratingObj)
-        console.log("Rating result", addRatingResult)
+        setUpdate(addRatingResult)
     }
 
     return(
@@ -41,10 +47,7 @@ const Book = (props) => {
                                 <span className={Styles.text}>Year of puplication: {book.publicationYear}</span>
                                 <span className={Styles.text}>Author: {book.author}</span>
                                 <div className={Styles.ratingWrapper}>
-                                    <Rating onClick={handleRating} ratingValue={rating} /* Available Props */ />
-                                    {rating > 0 ?
-                                     (<p>Your rating is {rating} aout off 100%</p>)
-                                    : <></>}
+                                    <Rating onClick={handleRating} ratingValue={book.rating.count / book.rating.weight} /* Available Props */ />
                                 </div>
                             </div>
                             <div className={Styles.aboutWrapper}>
