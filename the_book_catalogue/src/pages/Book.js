@@ -3,12 +3,14 @@ import React, { useState, useEffect, useContext } from 'react'
 import { Rating } from 'react-simple-star-rating'
 import { useParams } from "react-router-dom"
 import { BookContext } from "../contexts/BookContext"
-import { setuid } from "process"
+import { UserContext } from "../contexts/UserContext"
 
 const Book = (props) => {
     const { getBookById, book, addRating } = useContext(BookContext)
+    const { user } = useContext(UserContext)
     const { id } = useParams()
     const [update, setUpdate] = useState()
+    const [msg, setMsg] = useState(null)
 
     useEffect(() => {
         getBookById(id)
@@ -19,19 +21,31 @@ const Book = (props) => {
     }, [update])
 
     useEffect(() => {
-        console.log("book", book)
+       console.log("book", book)
     }, [book])
 
-     //Catch Rating value
+    //Catch Rating value
     const handleRating = async (newRating) => {
+        if(!user) {
+            return
+        }
+
+        book.users.map((bookUser) => {
+            if(bookUser === user._id) {
+                setMsg("You have already made a rating!")
+                return
+            }
+        })
 
         let w = book.rating.weight += 1
         let c = book.rating.count + newRating
         let ratingObj = {
-            rating: {weight: w, count: c},
-            id: book._id
+            rating: { weight: w, count: c },
+            id: book._id,
+            userId: user._id
         }
         let addRatingResult = await addRating(ratingObj)
+
         setUpdate(addRatingResult)
     }
 
@@ -48,6 +62,10 @@ const Book = (props) => {
                                 <span className={Styles.text}>Author: {book.author}</span>
                                 <div className={Styles.ratingWrapper}>
                                     <Rating onClick={handleRating} ratingValue={book.rating.count / book.rating.weight} /* Available Props */ />
+                                    {msg ?
+                                        (<p>{msg}</p>)
+                                    :
+                                        (<></>)}
                                 </div>
                             </div>
                             <div className={Styles.aboutWrapper}>

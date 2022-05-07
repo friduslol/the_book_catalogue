@@ -15,7 +15,8 @@ const BookSchema = new Schema(
         rating: {
             weight: Number,
             count: Number
-        }
+        },
+        users: [{ type: Schema.Types.ObjectId, ref: 'User' }]
     }
 );
 
