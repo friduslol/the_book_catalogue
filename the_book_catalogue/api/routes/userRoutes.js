@@ -9,6 +9,8 @@ router.get("/logout", userController.logout);
 router.post("/login", userController.login);
 router.post("/addToLibrary", userController.addToLibrary);
 router.get("/getFaves/:userId", userController.getFaves);
+router.get("/getHaveRead/:userId", userController.getHaveRead);
+router.get("/getWillRead/:userId", userController.getWillRead);
 
 
 module.exports = router;

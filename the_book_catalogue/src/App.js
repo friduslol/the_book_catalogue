@@ -1,4 +1,3 @@
-import { render } from "react-dom";
 import {
   BrowserRouter,
   Routes,
@@ -15,7 +14,6 @@ import Footer from "./components/Footer"
 import BookContextProvider from "./contexts/BookContext"
 import UserContextProvider from "./contexts/UserContext"
 import RequireUserAcc from "./components/RequireUserAcc"
-
 
 function App() {
   return (

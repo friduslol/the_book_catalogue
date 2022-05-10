@@ -1,17 +1,29 @@
 import Styles from "../styles/User.module.css"
 import ListCard from "../components/ListCard"
 import { useNavigate } from "react-router-dom"
-import React, { useRef, useState, useContext, useEffect } from "react"
+import React, { useContext, useEffect } from "react"
 import { UserContext } from "../contexts/UserContext"
 
 const UserPage = () => {
-    const { logout, fetchFaves, user, faves, faveInfo } = useContext(UserContext)
+    const {
+        logout,
+        fetchFaves,
+        user,
+        faves,
+        fetchHaveRead,
+        fetchWillRead,
+        haveRead,
+        willRead,
+    } = useContext(UserContext)
     const navigateHook = useNavigate()
 
     useEffect(() => {
         if(user) {
             fetchFaves(user._id)
+            fetchHaveRead(user._id)
+            fetchWillRead(user._id)
         }
+        // eslint-disable-next-line
     }, [])
 
     useEffect(() => {
@@ -43,7 +55,20 @@ const UserPage = () => {
                     <img className={Styles.booksImg} src={process.env.PUBLIC_URL + '/icons8-books-60.png'} alt="stacked books"/>
                 </div>
                 {faves.length ? <ListCard data={faves[0].books} /> : <></>}
-
+            </div>
+            <div className={Styles.bookListsContainer}>
+                <div className={Styles.listTitleWrapper}>
+                    <h2 className={Styles.listTitle}>Will Read</h2>
+                    <img className={Styles.booksImg} src={process.env.PUBLIC_URL + '/icons8-books-60.png'} alt="stacked books"/>
+                </div>
+                {willRead.length ? <ListCard data={willRead[0].books} /> : <></>}
+            </div>
+            <div className={Styles.bookListsContainer}>
+                <div className={Styles.listTitleWrapper}>
+                    <h2 className={Styles.listTitle}>Have Read</h2>
+                    <img className={Styles.booksImg} src={process.env.PUBLIC_URL + '/icons8-books-60.png'} alt="stacked books"/>
+                </div>
+                {haveRead.length ? <ListCard data={haveRead[0].books} /> : <></>}
             </div>
         </div>
     )

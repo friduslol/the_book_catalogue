@@ -6,7 +6,8 @@ const UserContextProvider = (props) => {
     const [user, setUser] = useState(false)
     const [loading, setLoading] = useState(true)
     const [faves, setFaves] = useState([])
-    const [faveInfo, setFaveInfo] = useState(null)
+    const [willRead, setWillRead] = useState([])
+    const [haveRead, setHaveRead] = useState([])
 
     useEffect(() => {
         getCookie()
@@ -95,7 +96,26 @@ const UserContextProvider = (props) => {
             let result = await fetch(`/api/v1/user/getFaves/${userId}`)
             result = await result.json()
             setFaves(result)
-            setFaveInfo(result)
+            return result
+        } catch(err) {
+            return err
+        }
+    }
+    const fetchWillRead = async (userId) => {
+        try {
+            let result = await fetch(`/api/v1/user/getWillRead/${userId}`)
+            result = await result.json()
+            setWillRead(result)
+            return result
+        } catch(err) {
+            return err
+        }
+    }
+    const fetchHaveRead = async (userId) => {
+        try {
+            let result = await fetch(`/api/v1/user/getHaveRead/${userId}`)
+            result = await result.json()
+            setHaveRead(result)
             return result
         } catch(err) {
             return err
@@ -111,7 +131,10 @@ const UserContextProvider = (props) => {
         addToLibrary,
         fetchFaves,
         faves,
-        faveInfo
+        fetchWillRead,
+        fetchHaveRead,
+        haveRead,
+        willRead,
     }
 
     return(

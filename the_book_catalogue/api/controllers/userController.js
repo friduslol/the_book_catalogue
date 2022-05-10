@@ -143,7 +143,37 @@ const getFaves = async (req, res) => {
         let faves = await Favourites.find(
             { userId: req.params.userId }
         ).populate("books", "title coverImg _id").exec()
-        
+
+        if(faves.length) {
+            res.status(200).json(faves)
+            return
+        }
+        res.status(404).json({ msg: "No books in this library!" })
+    } catch (err) {
+        res.status(400).json({ error: err })
+    }
+}
+const getWillRead = async (req, res) => {
+    try {
+        let faves = await WillRead.find(
+            { userId: req.params.userId }
+        ).populate("books", "title coverImg _id").exec()
+
+        if(faves.length) {
+            res.status(200).json(faves)
+            return
+        }
+        res.status(404).json({ msg: "No books in this library!" })
+    } catch (err) {
+        res.status(400).json({ error: err })
+    }
+}
+const getHaveRead = async (req, res) => {
+    try {
+        let faves = await HaveRead.find(
+            { userId: req.params.userId }
+        ).populate("books", "title coverImg _id").exec()
+
         if(faves.length) {
             res.status(200).json(faves)
             return
@@ -160,5 +190,7 @@ module.exports = {
     logout,
     login,
     addToLibrary,
-    getFaves
+    getFaves,
+    getHaveRead,
+    getWillRead
 }

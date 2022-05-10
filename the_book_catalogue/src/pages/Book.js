@@ -15,15 +15,14 @@ const Book = (props) => {
 
     useEffect(() => {
         getBookById(id)
+        // eslint-disable-next-line
     }, [])
 
     useEffect(() => {
         getBookById(id)
+        // eslint-disable-next-line
     }, [update])
 
-    useEffect(() => {
-       console.log("book", book)
-    }, [book])
 
     //Catch Rating value
     const handleRating = async (newRating) => {
