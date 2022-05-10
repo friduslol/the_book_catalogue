@@ -10,7 +10,8 @@ const Book = (props) => {
     const { user, addToLibrary } = useContext(UserContext)
     const { id } = useParams()
     const [update, setUpdate] = useState()
-    const [msg, setMsg] = useState(null)
+    const [ratingMsg, setRatingMsg] = useState(null)
+    const [libraryMsg, setLibraryMSg] = useState(null)
 
     useEffect(() => {
         getBookById(id)
@@ -32,7 +33,7 @@ const Book = (props) => {
 
         book.users.map((bookUser) => {
             if(bookUser === user._id) {
-                setMsg("You have already made a rating!")
+                setRatingMsg("You have already made a rating!")
                 return
             }
         })
@@ -60,9 +61,13 @@ const Book = (props) => {
             option
         }
 
-        let AddToLibraryResult = await addToLibrary(optionObj)
+        let addToLibraryResult = await addToLibrary(optionObj)
 
-        console.log("res", AddToLibraryResult)
+        if(addToLibraryResult.success) {
+            setLibraryMSg(addToLibraryResult.success)
+        } else {
+            setLibraryMSg(addToLibraryResult.error)
+        }
     }
 
     return(
@@ -78,8 +83,8 @@ const Book = (props) => {
                                 <span className={Styles.text}>Author: {book.author}</span>
                                 <div className={Styles.ratingWrapper}>
                                     <Rating onClick={handleRating} ratingValue={book.rating.count / book.rating.weight} /* Available Props */ />
-                                    {msg ?
-                                        (<p>{msg}</p>)
+                                    {ratingMsg ?
+                                        (<p>{ratingMsg}</p>)
                                     :
                                         (<></>)}
                                 </div>
@@ -99,6 +104,10 @@ const Book = (props) => {
                             <button onClick={() => handleAddToLibrary(2)}>Will read</button>
                             <button onClick={() => handleAddToLibrary(3)}>Have Read</button>
                             <button onClick={() => handleAddToLibrary(1)}>Favourite</button>
+                            {libraryMsg ?
+                                        (<p>{libraryMsg}</p>)
+                                    :
+                                        (<></>)}
                         </div>
                     </div>
             : <></>}
