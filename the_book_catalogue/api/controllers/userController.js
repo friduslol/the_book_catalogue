@@ -138,10 +138,27 @@ const addToLibrary = async (req, res) => {
     }
 }
 
+const getFaves = async (req, res) => {
+    try {
+        let faves = await Favourites.find(
+            { userId: req.params.userId }
+        ).populate("books", "title coverImg _id").exec()
+        
+        if(faves.length) {
+            res.status(200).json(faves)
+            return
+        }
+        res.status(404).json({ msg: "No books in this library!" })
+    } catch (err) {
+        res.status(400).json({ error: err })
+    }
+}
+
 module.exports = {
     createUser,
     getCookie,
     logout,
     login,
-    addToLibrary
+    addToLibrary,
+    getFaves
 }

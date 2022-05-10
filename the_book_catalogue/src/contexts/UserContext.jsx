@@ -5,6 +5,8 @@ export const UserContext = createContext()
 const UserContextProvider = (props) => {
     const [user, setUser] = useState(false)
     const [loading, setLoading] = useState(true)
+    const [faves, setFaves] = useState([])
+    const [faveInfo, setFaveInfo] = useState(null)
 
     useEffect(() => {
         getCookie()
@@ -88,13 +90,28 @@ const UserContextProvider = (props) => {
         }
     }
 
+    const fetchFaves = async (userId) => {
+        try {
+            let result = await fetch(`/api/v1/user/getFaves/${userId}`)
+            result = await result.json()
+            setFaves(result)
+            setFaveInfo(result)
+            return result
+        } catch(err) {
+            return err
+        }
+    }
+
     const values = {
         createUser,
         getCookie,
         user,
         logout,
         login,
-        addToLibrary
+        addToLibrary,
+        fetchFaves,
+        faves,
+        faveInfo
     }
 
     return(

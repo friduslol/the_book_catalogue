@@ -5,15 +5,6 @@ import { UserContext } from '../contexts/UserContext'
 const RequireUserAcc = (props) => {
     const { user } = useContext(UserContext)
 
-    useEffect(() => {
-        console.log("user in require", user)
-    }, [user])
-
-    useEffect(() => {
-        console.log("children", props.children)
-        console.log("redirect", props.redirectTo)
-    }, [])
-
 	return (
 		user && user
 			? props.children

@@ -1,45 +1,28 @@
 import Styles from "../styles/User.module.css"
 import ListCard from "../components/ListCard"
 import { useNavigate } from "react-router-dom"
-import React, { useRef, useState, useContext } from "react"
+import React, { useRef, useState, useContext, useEffect } from "react"
 import { UserContext } from "../contexts/UserContext"
 
 const UserPage = () => {
-    const { logout } = useContext(UserContext)
+    const { logout, fetchFaves, user, faves, faveInfo } = useContext(UserContext)
     const navigateHook = useNavigate()
+
+    useEffect(() => {
+        if(user) {
+            fetchFaves(user._id)
+        }
+    }, [])
+
+    useEffect(() => {
+       console.log("faves", faves)
+
+    }, [faves])
 
     const handleLogout = async () => {
         await logout()
 		navigateHook('/')
     }
-
-    const arr = [
-        {
-            "list": "Favourites",
-            "books": [
-                {"Title": "Harry Potter prisoner of Azkaban"},
-                {"Title": "Harry Potter prisoner of Azkaban"},
-                {"Title": "Harry Potter prisoner of Azkaban"},
-            ]
-        },
-        {
-            "list": "Will Read",
-            "books": [
-                {"Title": "Harry Potter prisoner of Azkaban"},
-                {"Title": "Harry Potter prisoner of Azkaban"},
-                {"Title": "Harry Potter prisoner of Azkaban"},
-            ]
-        },
-        {
-            "list": "Have Read",
-            "books": [
-                {"Title": "Harry Potter prisoner of Azkaban"},
-                {"Title": "Harry Potter prisoner of Azkaban"},
-                {"Title": "Harry Potter prisoner of Azkaban"},
-            ]
-        },
-    ]
-
 
     return(
         <div className={Styles.userContainer}>
@@ -55,13 +38,15 @@ const UserPage = () => {
             </div>
 
             <div className={Styles.bookListsContainer}>
-                {arr.map((listItem, i) => (
-                    <ListCard listItem={listItem} key={i} />
-                ))}
+                <div className={Styles.listTitleWrapper}>
+                    <h2 className={Styles.listTitle}>Favourites</h2>
+                    <img className={Styles.booksImg} src={process.env.PUBLIC_URL + '/icons8-books-60.png'} alt="stacked books"/>
+                </div>
+                {faves.length ? <ListCard data={faves[0].books} /> : <></>}
 
             </div>
         </div>
     )
 }
 
-export default UserPage;
+export default UserPage
