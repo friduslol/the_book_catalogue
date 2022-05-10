@@ -6,6 +6,9 @@ const UserSchema = new Schema(
        email: String,
        userName: String,
        password: String,
+       Favourites: { type: Schema.Types.ObjectId, ref: "Favourites" },
+       WillRead: { type: Schema.Types.ObjectId, ref: "WillRead" },
+       HaveRead: { type: Schema.Types.ObjectId, ref: "HaveRead" },
     }
 );
 

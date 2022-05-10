@@ -72,13 +72,29 @@ const UserContextProvider = (props) => {
         }
     }
 
+    const addToLibrary = async (optionObj) => {
+        try {
+            let result = await fetch("/api/v1/user/addToLibrary", {
+                method: "POST",
+                headers: {
+                    "content-type": "application/json",
+                },
+                body: JSON.stringify(optionObj),
+            })
+            result = await result.json()
+            return result
+        } catch(err) {
+            return err
+        }
+    }
 
     const values = {
         createUser,
         getCookie,
         user,
         logout,
-        login
+        login,
+        addToLibrary
     }
 
     return(

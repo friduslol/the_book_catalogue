@@ -7,6 +7,7 @@ router.post("/create", userController.createUser)
 router.get("/getCookie", userController.getCookie);
 router.get("/logout", userController.logout);
 router.post("/login", userController.login);
+router.post("/addToLibrary", userController.addToLibrary);
 
 
 module.exports = router;

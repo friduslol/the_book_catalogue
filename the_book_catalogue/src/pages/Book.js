@@ -7,7 +7,7 @@ import { UserContext } from "../contexts/UserContext"
 
 const Book = (props) => {
     const { getBookById, book, addRating } = useContext(BookContext)
-    const { user } = useContext(UserContext)
+    const { user, addToLibrary } = useContext(UserContext)
     const { id } = useParams()
     const [update, setUpdate] = useState()
     const [msg, setMsg] = useState(null)
@@ -49,6 +49,22 @@ const Book = (props) => {
         setUpdate(addRatingResult)
     }
 
+    const handleAddToLibrary = async (option) => {
+        if(!user) {
+            return
+        }
+
+        let optionObj = {
+            id: book._id,
+            userId: user._id,
+            option
+        }
+
+        let AddToLibraryResult = await addToLibrary(optionObj)
+
+        console.log("res", AddToLibraryResult)
+    }
+
     return(
         <div>
             {book ? <div className={Styles.bookContainer}>
@@ -80,6 +96,9 @@ const Book = (props) => {
                                 <span className={Styles.text}>Pages: {book.pages}</span>
                                 <span className={Styles.text}>Category: {book.category}</span>
                             </div>
+                            <button onClick={() => handleAddToLibrary(2)}>Will read</button>
+                            <button onClick={() => handleAddToLibrary(3)}>Have Read</button>
+                            <button onClick={() => handleAddToLibrary(1)}>Favourite</button>
                         </div>
                     </div>
             : <></>}
