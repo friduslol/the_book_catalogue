@@ -184,6 +184,36 @@ const getHaveRead = async (req, res) => {
     }
 }
 
+const deleteBookInLibrary = async (req, res) => {
+    try {
+        if(req.body.option === 1) {
+            Favourites.updateOne(
+                { _id: req.body.libraryId },
+                { $pull: { books: req.body.bookId }}).exec()
+                res.status(200).json({ success: "Book removed!"})
+            return
+        }
+        if(req.body.option === 2) {
+            WillRead.updateOne(
+                { _id: req.body.libraryId },
+                { $pull: { books: req.body.bookId }}).exec()
+                res.status(200).json({ success: "Book removed!"})
+            return
+        }
+        if(req.body.option === 3) {
+            HaveRead.updateOne(
+                { _id: req.body.libraryId },
+                { $pull: { books: req.body.bookId }}).exec()
+                res.status(200).json({ success: "Book removed!"})
+            return
+        }
+
+    } catch(err) {
+        res.status(400).json({ error: err })
+        return
+    }
+}
+
 module.exports = {
     createUser,
     getCookie,
@@ -192,5 +222,6 @@ module.exports = {
     addToLibrary,
     getFaves,
     getHaveRead,
-    getWillRead
+    getWillRead,
+    deleteBookInLibrary
 }

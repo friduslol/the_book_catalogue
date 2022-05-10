@@ -111,12 +111,30 @@ const UserContextProvider = (props) => {
             return err
         }
     }
+
     const fetchHaveRead = async (userId) => {
         try {
             let result = await fetch(`/api/v1/user/getHaveRead/${userId}`)
             result = await result.json()
             setHaveRead(result)
             return result
+        } catch(err) {
+            return err
+        }
+    }
+
+    const removeBook = async (removeObj) => {
+        try {
+            let result = await fetch("/api/v1/user/deleteBookInLibrary", {
+                method: "PUT",
+                headers: {
+                    "content-type": "application/json",
+                },
+                body: JSON.stringify(removeObj),
+            })
+            result = await result.json()
+            return result
+
         } catch(err) {
             return err
         }
@@ -135,6 +153,7 @@ const UserContextProvider = (props) => {
         fetchHaveRead,
         haveRead,
         willRead,
+        removeBook
     }
 
     return(

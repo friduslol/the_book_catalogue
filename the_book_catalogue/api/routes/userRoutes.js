@@ -11,6 +11,7 @@ router.post("/addToLibrary", userController.addToLibrary);
 router.get("/getFaves/:userId", userController.getFaves);
 router.get("/getHaveRead/:userId", userController.getHaveRead);
 router.get("/getWillRead/:userId", userController.getWillRead);
+router.put("/deleteBookInLibrary", userController.deleteBookInLibrary)
 
 
 module.exports = router;
