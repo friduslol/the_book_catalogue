@@ -50,25 +50,27 @@ const UserPage = () => {
             </div>
 
             <div className={Styles.bookListsContainer}>
-                <div className={Styles.listTitleWrapper}>
-                    <h2 className={Styles.listTitle}>Favourites</h2>
-                    <img className={Styles.booksImg} src={process.env.PUBLIC_URL + '/icons8-books-60.png'} alt="stacked books"/>
+                <div className={Styles.cardContainer}>
+                    <div className={Styles.listTitleWrapper}>
+                        <h2 className={Styles.listTitle}>Favourites</h2>
+                        <img className={Styles.booksImg} src={process.env.PUBLIC_URL + '/icons8-books-60.png'} alt="stacked books"/>
+                    </div>
+                    {faves.length ? <ListCard data={faves[0].books} /> : <></>}
                 </div>
-                {faves.length ? <ListCard data={faves[0].books} /> : <></>}
-            </div>
-            <div className={Styles.bookListsContainer}>
-                <div className={Styles.listTitleWrapper}>
-                    <h2 className={Styles.listTitle}>Will Read</h2>
-                    <img className={Styles.booksImg} src={process.env.PUBLIC_URL + '/icons8-books-60.png'} alt="stacked books"/>
+                <div className={Styles.cardContainer}>
+                    <div className={Styles.listTitleWrapper}>
+                        <h2 className={Styles.listTitle}>Will Read</h2>
+                        <img className={Styles.booksImg} src={process.env.PUBLIC_URL + '/icons8-books-60.png'} alt="stacked books"/>
+                    </div>
+                    {willRead.length ? <ListCard data={willRead[0].books} /> : <></>}
                 </div>
-                {willRead.length ? <ListCard data={willRead[0].books} /> : <></>}
-            </div>
-            <div className={Styles.bookListsContainer}>
-                <div className={Styles.listTitleWrapper}>
-                    <h2 className={Styles.listTitle}>Have Read</h2>
-                    <img className={Styles.booksImg} src={process.env.PUBLIC_URL + '/icons8-books-60.png'} alt="stacked books"/>
+                <div className={Styles.cardContainer}>
+                    <div className={Styles.listTitleWrapper}>
+                        <h2 className={Styles.listTitle}>Have Read</h2>
+                        <img className={Styles.booksImg} src={process.env.PUBLIC_URL + '/icons8-books-60.png'} alt="stacked books"/>
+                    </div>
+                    {haveRead.length ? <ListCard data={haveRead[0].books} /> : <></>}
                 </div>
-                {haveRead.length ? <ListCard data={haveRead[0].books} /> : <></>}
             </div>
         </div>
     )

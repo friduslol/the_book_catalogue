@@ -8,7 +8,7 @@ const ListCard = (props) => {
         navigateHook(`/book/${id}`)
     }
     return(
-        <div className={Styles.cardContainer}>
+        <div>
             {props.data.map((book, i) => (
                 <div className={Styles.bookWrapper} key={i}>
                     <p className={Styles.bookTitle} onClick={() => handleClick(book._id)}>{book.title}</p>
