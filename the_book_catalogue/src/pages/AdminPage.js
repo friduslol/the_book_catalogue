@@ -1,10 +1,10 @@
 import Styles from "../styles/Admin.module.css"
-import { useRef, useContext } from "react"
+import { useRef, useContext, useState } from "react"
 import {  BookContext } from "../contexts/BookContext"
 
 const AdminPage = () => {
     const { addBook, removeBook } = useContext(BookContext)
-    const coverImgRef = useRef(null)
+    const coverImgRef = useRef()
     const titleRef = useRef()
     const descRef = useRef()
     const authorRef = useRef()
@@ -13,20 +13,10 @@ const AdminPage = () => {
     const pagesRef = useRef()
     const categoryRef = useRef()
     const isbnRemoveRef = useRef()
+    const [addedMsg, setAddedMsg] = useState(null)
+    const [deleteMsg, setDeleteMsg] = useState(null)
 
-//     const uploadImg = () => {
-//         let ref = document.getElementById('fileUpload')
-//         ref.click()
-//     }
-
-//    const handleFileChange = (e) => {
-//         if (e.target.files[0]) {
-//             setCoverImg(e.target.files[0])
-//         }
-
-//     }
    const handleAddBook = async (e) => {
-
         e.preventDefault()
 
         let bookObj = {
@@ -41,25 +31,22 @@ const AdminPage = () => {
                 weight: 0,
                 count: 0
             },
-            coverImg: coverImgRef.current.value ? coverImgRef.current.value : "No cover available",
+            coverImg: coverImgRef.current.value,
         }
 
-        console.log("bookObj:", bookObj)
-
-        let addedBookResult = await addBook(bookObj)
-
-        console.log("Res:", addedBookResult);
+        let result = await addBook(bookObj)
+        if(result.success) {
+            setAddedMsg(result.success)
+        }
     }
 
     const handleRemoveBook = async (e) => {
-
         e.preventDefault()
 
-        console.log("isbn", isbnRemoveRef)
-
-        let removedBookResult = await removeBook(isbnRemoveRef.current.value)
-
-        console.log("Res, removed book:", removedBookResult)
+        let result = await removeBook(isbnRemoveRef.current.value)
+        if(result.success) {
+            setDeleteMsg(result.success)
+        }
     }
 
     return(
@@ -74,31 +61,16 @@ const AdminPage = () => {
                     <input className={Styles.input} type="text" placeholder="Category" ref={categoryRef} required/>
                     <input className={Styles.input} type="number" placeholder="Pages" ref={pagesRef} required/>
                     <input className={Styles.input} type="text" placeholder="ISBN" ref={isbnRef} required/>
-                    <input className={Styles.input} type="text" placeholder="Book cover URL" ref={coverImgRef} />
-
-
-                    {/* <div className={Styles.uploadImgWrapper}>
-                        <input type="button" className={Styles.uploadButton} value="Choose image"  onClick={() => uploadImg()}/>
-                        <input type="file" name="upload" accept="image/*" id="fileUpload" className={Styles.fileUpload}  onChange={handleFileChange}/>
-                        <div className={Styles.filenameWrapper}>
-                            <span id="fileName" className={Styles.fileName}>
-                                {
-                                    coverImg
-                                        ? `${coverImg.name}`
-                                        : "..."
-                                }
-                            </span>
-                        </div>
-                    </div> */}
-
+                    <input className={Styles.input} type="text" placeholder="Book cover URL" ref={coverImgRef} required/>
                     <button type="submit" className={Styles.actionBtn}>Add</button>
+                    {addedMsg && <p className={Styles.adminMsg}>{addedMsg}</p>}
                 </form>
 
                 <form className={Styles.formWrapper} onSubmit={handleRemoveBook}>
-                    <h1 className={Styles.formHeader} >Remove a book</h1>
+                    <h1 className={Styles.formHeader}>Remove a book</h1>
                     <input className={Styles.input} type="text" placeholder="ISBN Number" ref={isbnRemoveRef} required />
-                    {/* <input className={Styles.input} type="Name" placeholder="Title"/> */}
                     <button type="submit" className={Styles.actionBtn}>Remove</button>
+                    {deleteMsg && <p className={Styles.adminMsg}>{deleteMsg}</p>}
                 </form>
             </div>
         </div>

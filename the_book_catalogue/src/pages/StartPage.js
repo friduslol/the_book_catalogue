@@ -5,9 +5,10 @@ import BooksWrapper from "../components/BooksWrapper"
 import SearchWrapper from "../components/SearchWrapper"
 
 const StartPage = () => {
-    const { getAllBooks, setBooks, inputSearch } = useContext(BookContext)
+    const { getAllBooks, inputSearch } = useContext(BookContext)
     const [show, setShow] = useState(true)
     const searchRef = useRef()
+
     useEffect(() => {
         getAllBooks()
         // eslint-disable-next-line
@@ -18,8 +19,6 @@ const StartPage = () => {
         if(searchRef.current.value === "") {
             return
         }
-
-        console.log("Search string:", searchRef.current.value)
 
         inputSearch(searchRef.current.value)
         setShow(false)
@@ -43,8 +42,7 @@ const StartPage = () => {
             :
                 <SearchWrapper />
             }
-
         </div>
     )
 }
-export default StartPage;
+export default StartPage

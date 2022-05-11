@@ -123,7 +123,7 @@ const UserContextProvider = (props) => {
         }
     }
 
-    const removeBook = async (removeObj) => {
+    const removeBookInLibrary = async (removeObj) => {
         try {
             let result = await fetch("/api/v1/user/deleteBookInLibrary", {
                 method: "PUT",
@@ -153,7 +153,7 @@ const UserContextProvider = (props) => {
         fetchHaveRead,
         haveRead,
         willRead,
-        removeBook
+        removeBookInLibrary
     }
 
     return(

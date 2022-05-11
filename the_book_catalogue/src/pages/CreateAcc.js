@@ -2,7 +2,7 @@ import { UserContext } from "../contexts/UserContext"
 import React, { useRef, useState, useContext } from "react"
 import Styles from "../styles/CreateAcc.module.css"
 import PasswordChecklist from "react-password-checklist"
-import { useNavigate } from 'react-router-dom'
+import { useNavigate } from "react-router-dom"
 
 const CreateAcc = () => {
     const { createUser } = useContext(UserContext)
@@ -31,17 +31,16 @@ const CreateAcc = () => {
         }
 
         setLoading(true)
-        let createUserResult = await createUser(userObj)
+        let result = await createUser(userObj)
 
-        if(createUserResult.error) {
-            console.log("error", createUserResult.error)
-            setError("error")
+        if(result.error) {
+            setError(result.error)
             setLoading(false)
             setPass(false)
             return
         }
 
-        if(createUserResult.success) {
+        if(result.success) {
             setLoading(false)
             setError(null)
             setPass(false)
@@ -61,19 +60,20 @@ const CreateAcc = () => {
                 {error && <p>{error}</p>}
 
                 <PasswordChecklist
-				rules={["minLength","specialChar","number","capital","match"]}
-				minLength={5}
-				value={password}
-                valueAgain={confirmPassword}
-                invalidColor="#BA4A4A"
-                validColor="#3c6943"
-                iconSize="12"
-                onChange={(isValid) => setPass(isValid)}
-			/>
+                    rules={["minLength","specialChar","number","capital","match"]}
+                    minLength={5}
+                    value={password}
+                    valueAgain={confirmPassword}
+                    invalidColor="#BA4A4A"
+                    validColor="#3c6943"
+                    iconSize="12"
+                    onChange={(isValid) => setPass(isValid)}
+			    />
+
                 <button disabled={loading} type="submit" className={Styles.createBtn}>Create</button>
             </form>
         </div>
     )
 }
 
-export default CreateAcc;
+export default CreateAcc

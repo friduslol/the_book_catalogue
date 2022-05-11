@@ -4,8 +4,8 @@ const { param } = require("../routes/userRoutes");
 
 const addBook = async (req, res) => {
     try {
-        let book = await Book.create(req.body);
-        res.status(200).json({  success: "Book added!", book })
+        await Book.create(req.body);
+        res.status(200).json({ success: "Book added!" })
         return
     } catch(err) {
         res.status(400).json({ error: err })
@@ -15,8 +15,8 @@ const addBook = async (req, res) => {
 
 const removeBook = async (req, res) => {
     try {
-        let book = await Book.findOneAndDelete(req.params.isbn).exec()
-        res.status(200).json({ success: `The Book ${book.title} with isbn ${book.isbn} was removed!`})
+        let book = await Book.findOneAndDelete({isbn: req.params.isbn}).exec()
+        res.status(200).json({ success: `The Book ${book.title} with isbn ${book.isbn} was removed!` })
         return
     } catch(err) {
         res.status(400).json({ error: err })

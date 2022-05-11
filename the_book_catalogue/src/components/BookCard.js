@@ -9,7 +9,7 @@ const BookCard = (props) => {
         navigateHook(`/book/${props.data._id}`)
     }
 
-    return (
+    return(
         <div>
             <img className={Styles.bookImg} src={props.data.coverImg} alt="bookcover" onClick={handleClick}/>
         </div>

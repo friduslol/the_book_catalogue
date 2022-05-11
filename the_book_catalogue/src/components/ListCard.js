@@ -1,10 +1,10 @@
 import Styles from "../styles/ListCard.module.css"
 import { useNavigate } from "react-router-dom"
 import { UserContext } from "../contexts/UserContext"
-import React, { useContext, useEffect } from "react"
+import React, { useContext } from "react"
 
 const ListCard = (props) => {
-    const { removeBook, user, fetchFaves, fetchWillRead, fetchHaveRead } = useContext(UserContext)
+    const { removeBookInLibrary, user, fetchFaves, fetchWillRead, fetchHaveRead } = useContext(UserContext)
     const navigateHook = useNavigate()
 
     const handleClick = (id) => {
@@ -22,13 +22,13 @@ const ListCard = (props) => {
             bookId
         }
 
-       let res = await removeBook(removeObj)
+       let result = await removeBookInLibrary(removeObj)
 
-       if(res.success) {
-        fetchHaveRead(user._id)
-        fetchWillRead(user._id)
-        fetchFaves(user._id)
-       }
+       if(result.success) {
+            fetchHaveRead(user._id)
+            fetchWillRead(user._id)
+            fetchFaves(user._id)
+        }
     }
 
     return(
@@ -46,4 +46,4 @@ const ListCard = (props) => {
     )
 }
 
-export default ListCard;
+export default ListCard

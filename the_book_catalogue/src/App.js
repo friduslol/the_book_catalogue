@@ -25,7 +25,6 @@ function App() {
             <Navbar />
                 <Routes>
                   <Route path="/" element={<StartPage />} />
-                  {/* <Route path="/adminPage" element={<AdminPage />} /> */}
                   <Route path="/book/:id" element={<Book />} />
                   <Route path="/signIn" element={<SignIn />} />
                   <Route path="/createAccount" element={<CreateAcc />} />
@@ -45,7 +44,7 @@ function App() {
         </UserContextProvider>
       </BrowserRouter>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App

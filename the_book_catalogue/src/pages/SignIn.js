@@ -3,7 +3,6 @@ import React, { useRef, useState, useContext } from "react"
 import Styles from "../styles/SignIn.module.css"
 import { useNavigate } from 'react-router-dom'
 
-
 const SignIn = () => {
     const { login } = useContext(UserContext)
     const navigateHook = useNavigate()
@@ -22,15 +21,15 @@ const SignIn = () => {
         }
 
         setLoading(true)
-        let loginResult = await login(userObj)
+        let result = await login(userObj)
 
-        if(loginResult.error) {
-            setError(loginResult.error)
+        if(result.error) {
+            setError(result.error)
             setLoading(false)
             return
         }
 
-        if(loginResult.success) {
+        if(result.success) {
             setLoading(false)
             setError(null)
             navigateHook("/userPage")
@@ -51,4 +50,4 @@ const SignIn = () => {
     )
 }
 
-export default SignIn;
+export default SignIn

@@ -4,7 +4,7 @@ import { UserContext } from '../contexts/UserContext'
 
 const RequireAdmin = (props) => {
     const { user } = useContext(UserContext)
-
+    
 	return (
 		user && user.admin === true
 			? props.children

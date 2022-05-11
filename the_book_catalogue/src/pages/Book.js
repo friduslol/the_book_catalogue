@@ -1,11 +1,11 @@
 import Styles from "../styles/Book.module.css"
-import React, { useState, useEffect, useContext } from 'react'
-import { Rating } from 'react-simple-star-rating'
+import React, { useState, useEffect, useContext } from "react"
+import { Rating } from "react-simple-star-rating"
 import { useParams } from "react-router-dom"
 import { BookContext } from "../contexts/BookContext"
 import { UserContext } from "../contexts/UserContext"
 
-const Book = (props) => {
+const Book = () => {
     const { getBookById, book, addRating } = useContext(BookContext)
     const { user, addToLibrary } = useContext(UserContext)
     const { id } = useParams()
@@ -30,9 +30,11 @@ const Book = (props) => {
             return
         }
 
+        //eslint-disable-next-line
         book.users.map((bookUser) => {
             if(bookUser === user._id) {
                 setRatingMsg("You have already made a rating!")
+                //eslint-disable-next-line
                 return
             }
         })
@@ -60,12 +62,12 @@ const Book = (props) => {
             option
         }
 
-        let addToLibraryResult = await addToLibrary(optionObj)
+        let result = await addToLibrary(optionObj)
 
-        if(addToLibraryResult.success) {
-            setLibraryMSg(addToLibraryResult.success)
+        if(result.success) {
+            setLibraryMSg(result.success)
         } else {
-            setLibraryMSg(addToLibraryResult.error)
+            setLibraryMSg(result.error)
         }
     }
 
@@ -84,9 +86,10 @@ const Book = (props) => {
                             <div className={Styles.ratingWrapper}>
                                 <Rating onClick={handleRating} ratingValue={book.rating.count / book.rating.weight} /* Available Props */ />
                                 {ratingMsg ?
-                                    (<p>{ratingMsg}</p>)
+                                    <p>{ratingMsg}</p>
                                 :
-                                    (<></>)}
+                                    <></>
+                                }
                             </div>
                         </div>
                         <div className={Styles.aboutWrapper}>
@@ -104,7 +107,8 @@ const Book = (props) => {
                     </div>
                 </div>)
             :
-                (<></>)}
+                (<></>)
+            }
             {user ?
                 (<div className={Styles.userActionWrapper}>
                     <h2 className={Styles.smallHeading}>Add this book to a Library:</h2>
@@ -114,14 +118,16 @@ const Book = (props) => {
                         <button className={Styles.libraryBtn} onClick={() => handleAddToLibrary(3)}>Have Read</button>
                     </div>
                     {libraryMsg ?
-                            (<p>{libraryMsg}</p>)
-                        :
-                            (<></>)}
+                        <p>{libraryMsg}</p>
+                    :
+                        <></>
+                    }
                 </div>)
             :
-                (<></>)}
+                (<></>)
+            }
         </div>
     )
 }
 
-export default Book;
+export default Book
