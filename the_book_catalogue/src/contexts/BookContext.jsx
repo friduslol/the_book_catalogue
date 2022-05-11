@@ -1,4 +1,4 @@
-import { createContext, useState, useEffect } from "react"
+import { createContext, useState, } from "react"
 
 export const BookContext = createContext()
 
@@ -6,10 +6,6 @@ const BookContextProvider = (props) => {
     const [books, setBooks] = useState([])
     const [book, setBook] = useState(null)
     const [searchResult, setSerchResult] = useState([])
-
-    useEffect(() => {
-        console.log("search in context", searchResult)
-    },[searchResult])
 
     const addBook = async (bookObj) => {
         try {

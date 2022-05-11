@@ -26,11 +26,6 @@ const UserPage = () => {
         // eslint-disable-next-line
     }, [])
 
-    useEffect(() => {
-       console.log("faves", faves)
-
-    }, [faves])
-
     const handleLogout = async () => {
         await logout()
 		navigateHook('/')
@@ -40,8 +35,12 @@ const UserPage = () => {
         <div className={Styles.userContainer}>
             <div className={Styles.sectionWrapper}>
                 <div className={Styles.userDataWrapper}>
-                    <p className={Styles.userInfo}>Test Testsson</p>
-                    <p className={Styles.userInfo}>testtestsson@hotmail.com</p>
+                    {user &&
+                    <>
+                        <p className={Styles.userInfo}>{user.userName}</p>
+                        <p className={Styles.userInfo}>{user.email}</p>
+                    </>}
+
                     <button className={Styles.logOutBtn} onClick={handleLogout}>Logout</button>
                 </div>
 

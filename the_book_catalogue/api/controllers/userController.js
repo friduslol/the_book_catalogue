@@ -21,6 +21,7 @@ const createUser = async (req, res) => {
         user.password = null
         req.session.user = user
         res.status(200).json({ success: "User created!"})
+        return
     } catch(err) {
         res.status(400).json({ error: err })
     }
@@ -30,7 +31,8 @@ const logout = async (req, res) => {
     try {
         if(req.session.user) {
             delete req.session.user
-            return res.status(200).json({ success: "Logout successfull!" })
+            res.status(200).json({ success: "Logout successfull!" })
+            return
         }
     } catch(err) {
         res.status(400).json({ error: err })
@@ -45,10 +47,12 @@ const login = async (req, res) => {
             if(user.password === Encrypt.encrypt(req.body.password)) {
                 user.password = null
                 req.session.user = user
-                return res.status(200).json({ success: "Login successfull!" })
+                res.status(200).json({ success: "Login successfull!" })
+                return
             }
         }
-        return res.status(401).json({ error: "Bad credentials!" })
+        res.status(401).json({ error: "Bad credentials!" })
+        return
     } catch(err) {
         res.status(400).json({ error: err })
     }

@@ -33,7 +33,7 @@ const SignIn = () => {
         if(loginResult.success) {
             setLoading(false)
             setError(null)
-            // navigateHook("/userPage")
+            navigateHook("/userPage")
             return
         }
     }
