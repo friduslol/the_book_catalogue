@@ -36,7 +36,6 @@ const StartPage = () => {
                     </form>
                 </div>
             </div>
-            <h1 className={Styles.header}>In the spotlight right now...</h1>
             {show ?
                 <BooksWrapper />
             :

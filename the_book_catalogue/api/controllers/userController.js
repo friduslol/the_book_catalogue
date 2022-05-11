@@ -5,7 +5,7 @@ const WillRead = require("../models/WillRead")
 const Encrypt = require("../encrypt")
 
 const getCookie = (req, res) => {
-    res.json(req.session.user || null);
+    res.json(req.session.user || null)
 }
 
 const createUser = async (req, res) => {
@@ -20,7 +20,7 @@ const createUser = async (req, res) => {
         let user = await User.create(req.body)
         user.password = null
         req.session.user = user
-        res.status(200).json({ success: "User created!"})
+        res.status(200).json({ success: "User created!" })
         return
     } catch(err) {
         res.status(400).json({ error: err })
@@ -72,7 +72,7 @@ const addToLibrary = async (req, res) => {
                     Favourites.updateOne(
                         { userId: req.body.userId },
                         { $addToSet: { books: req.body.id }}).exec()
-                        res.status(200).json({ success: "Book added to Favourites!"})
+                        res.status(200).json({ success: "Book added to Favourites!" })
                     return
                 }
             } else {
@@ -80,14 +80,13 @@ const addToLibrary = async (req, res) => {
                     userId: req.body.userId,
                     books: req.body.id,
                 })
-                res.status(200).json({ success: "Book added to Favourites!"})
+                res.status(200).json({ success: "Book added to Favourites!" })
                 return
             }
         }
 
         if(req.body.option === 2) {
             let exists = await WillRead.exists({ userId: req.body.userId })
-
             if(exists) {
                 let book = await WillRead.exists(
                     { books: { $in: [req.body.id] }}).exec()
@@ -98,7 +97,7 @@ const addToLibrary = async (req, res) => {
                     WillRead.updateOne(
                         { userId: req.body.userId },
                         { $addToSet: { books: req.body.id }}).exec()
-                        res.status(200).json({ success: "Book added to Will Read!"})
+                        res.status(200).json({ success: "Book added to Will Read!" })
                     return
                 }
             } else {
@@ -106,14 +105,13 @@ const addToLibrary = async (req, res) => {
                     userId: req.body.userId,
                     books: req.body.id,
                 })
-                res.status(200).json({ success: "Book added to Will Read!"})
+                res.status(200).json({ success: "Book added to Will Read!" })
                 return
             }
         }
 
         if(req.body.option === 3) {
             let exists = await HaveRead.exists({ userId: req.body.userId })
-
             if(exists) {
                 let book = await HaveRead.exists(
                     { books: { $in: [req.body.id] }}).exec()
@@ -124,7 +122,7 @@ const addToLibrary = async (req, res) => {
                     HaveRead.updateOne(
                         { userId: req.body.userId },
                         { $addToSet: { books: req.body.id }}).exec()
-                        res.status(200).json({ success: "Book added to Have Read!"})
+                        res.status(200).json({ success: "Book added to Have Read!" })
                     return
                 }
             } else {
@@ -132,7 +130,7 @@ const addToLibrary = async (req, res) => {
                     userId: req.body.userId,
                     books: req.body.id,
                 })
-                res.status(200).json({ success: "Book added to Have Read!"})
+                res.status(200).json({ success: "Book added to Have Read!" })
                 return
             }
         }
@@ -194,24 +192,23 @@ const deleteBookInLibrary = async (req, res) => {
             Favourites.updateOne(
                 { _id: req.body.libraryId },
                 { $pull: { books: req.body.bookId }}).exec()
-                res.status(200).json({ success: "Book removed!"})
+                res.status(200).json({ success: "Book removed!" })
             return
         }
         if(req.body.option === 2) {
             WillRead.updateOne(
                 { _id: req.body.libraryId },
                 { $pull: { books: req.body.bookId }}).exec()
-                res.status(200).json({ success: "Book removed!"})
+                res.status(200).json({ success: "Book removed!" })
             return
         }
         if(req.body.option === 3) {
             HaveRead.updateOne(
                 { _id: req.body.libraryId },
                 { $pull: { books: req.body.bookId }}).exec()
-                res.status(200).json({ success: "Book removed!"})
+                res.status(200).json({ success: "Book removed!" })
             return
         }
-
     } catch(err) {
         res.status(400).json({ error: err })
         return

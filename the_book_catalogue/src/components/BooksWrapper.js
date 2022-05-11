@@ -12,7 +12,7 @@ const BooksWrapper = () => {
             {books.length ?
                 books.map((book, i) => (
                     <BookCard key={i} data={book} />))
-            : <p>No books available...</p>}
+            : <></>}
         </div>
     )
 }

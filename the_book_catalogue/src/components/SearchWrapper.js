@@ -11,7 +11,7 @@ const SearchWrapper = () => {
             {searchResult.length
             ? searchResult.map((book, i) => (
                 <BookCard key={i} data={book} />))
-            : <p>No match, please try again...</p>}
+            : <p className={Styles.noMatchMsg}>No match, please try again...</p>}
         </div>
     )
 }

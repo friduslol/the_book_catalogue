@@ -20,6 +20,7 @@ const Book = () => {
 
     useEffect(() => {
         getBookById(id)
+        console.log("runing")
         // eslint-disable-next-line
     }, [update])
 
@@ -30,15 +31,6 @@ const Book = () => {
             return
         }
 
-        //eslint-disable-next-line
-        book.users.map((bookUser) => {
-            if(bookUser === user._id) {
-                setRatingMsg("You have already made a rating!")
-                //eslint-disable-next-line
-                return
-            }
-        })
-
         let w = book.rating.weight += 1
         let c = book.rating.count + newRating
         let ratingObj = {
@@ -46,9 +38,16 @@ const Book = () => {
             id: book._id,
             userId: user._id
         }
-        let addRatingResult = await addRating(ratingObj)
+        let result = await addRating(ratingObj)
 
-        setUpdate(addRatingResult)
+        setUpdate(result)
+
+        if(result.success) {
+            setRatingMsg(result.success)
+        } else {
+            setRatingMsg(result.error)
+        }
+
     }
 
     const handleAddToLibrary = async (option) => {
@@ -103,25 +102,25 @@ const Book = () => {
                             <span className={Styles.text}>Year of publication: {book.publicationYear}</span>
                             <span className={Styles.text}>Pages: {book.pages}</span>
                             <span className={Styles.text}>Category: {book.category}</span>
+                            {user ?
+                                (<div className={Styles.userActionWrapper}>
+                                    <h2 className={Styles.smallHeading}>Add this book to a Library:</h2>
+                                    <div className={Styles.btnWrapper}>
+                                        <button className={Styles.libraryBtn} onClick={() => handleAddToLibrary(1)}>Favourite</button>
+                                        <button className={Styles.libraryBtn} onClick={() => handleAddToLibrary(2)}>Will read</button>
+                                        <button className={Styles.libraryBtn} onClick={() => handleAddToLibrary(3)}>Have Read</button>
+                                    </div>
+                                    {libraryMsg ?
+                                        <p className={Styles.libraryMsg}>{libraryMsg}</p>
+                                    :
+                                        <></>
+                                    }
+                                </div>)
+                            :
+                                (<></>)
+                            }
                         </div>
                     </div>
-                </div>)
-            :
-                (<></>)
-            }
-            {user ?
-                (<div className={Styles.userActionWrapper}>
-                    <h2 className={Styles.smallHeading}>Add this book to a Library:</h2>
-                    <div className={Styles.btnWrapper}>
-                        <button className={Styles.libraryBtn} onClick={() => handleAddToLibrary(1)}>Favourite</button>
-                        <button className={Styles.libraryBtn} onClick={() => handleAddToLibrary(2)}>Will read</button>
-                        <button className={Styles.libraryBtn} onClick={() => handleAddToLibrary(3)}>Have Read</button>
-                    </div>
-                    {libraryMsg ?
-                        <p>{libraryMsg}</p>
-                    :
-                        <></>
-                    }
                 </div>)
             :
                 (<></>)

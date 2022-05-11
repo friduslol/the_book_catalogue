@@ -10,7 +10,7 @@ const BookCard = (props) => {
     }
 
     return(
-        <div>
+        <div className={Styles.bookImgWrapper}>
             <img className={Styles.bookImg} src={props.data.coverImg} alt="bookcover" onClick={handleClick}/>
         </div>
     )

@@ -76,14 +76,17 @@
 .userActionWrapper {
     padding-bottom: 3rem;
 }
-.userActionWrapper  {
-    text-align: center;
-}
 
 .btnWrapper {
     display: flex;
-    align-items: center;
-    justify-content: center;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.libraryMsg {
+    font-size: 1.1rem;
+    color: var(--gray--color);
+    margin-top: 1.4rem;
 }
 
 .libraryBtn {
@@ -97,7 +100,7 @@
 	padding: 0.6rem 0.7rem;
     text-transform: uppercase;
     color: var(--light--color);
-    margin: 0.2rem;
+    margin-top: 0.7rem;
 }
 
 @media (min-width: 768px) {

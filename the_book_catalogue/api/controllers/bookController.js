@@ -57,10 +57,7 @@ const getBookById = async (req, res) => {
 
 const inputSearch = async (req, res) => {
     try {
-
         let searchString =  new RegExp(`${req.body.search}`, 'gi')
-        console.log("search string in controller", searchString)
-
         let result = await Book.find({$or:
             [
                 { "title": {$in: searchString} },
@@ -68,10 +65,8 @@ const inputSearch = async (req, res) => {
                 { "publicationYear": {$in: searchString} },
             ]
         }).exec()
-        console.log("res", result)
         res.status(200).json(result)
         return
-
     } catch(err) {
         res.status(400).json({ error: err })
         return
@@ -80,25 +75,26 @@ const inputSearch = async (req, res) => {
 
 const addRating = async (req, res) => {
     try {
-        let user = await Book.exists(
-            { users: { $in: [req.body.userId] }}).exec()
+        let user = await Book.exists({
+            _id: req.body.id,
+            users: { $in: req.body.userId}
+        })
 
-        if(user) {
+       if(user) {
             res.status(400).json({ error: "User have already made a rating!" })
             return
-        }
+       } else {
+            Book.updateOne(
+                { _id: req.body.id },
+                { $set: { rating: req.body.rating }}).exec()
 
-        Book.updateOne(
-            { _id: req.body.id },
-            { $set: { rating: req.body.rating }}).exec()
+            Book.updateOne(
+                { _id: req.body.id },
+                { $addToSet: {users: req.body.userId} }).exec()
 
-        Book.updateOne(
-            { _id: req.body.id },
-            { $addToSet: {users: req.body.userId} }).exec()
-
-        res.status(200).json({ success: "Rating updated!" })
+            res.status(200).json({ success: "Rating updated!" })
+       }
     } catch(err) {
-        console.log(err)
         res.status(400).json({ error: err })
         return
     }
