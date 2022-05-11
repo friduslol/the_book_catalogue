@@ -12,6 +12,11 @@ const BookSchema = new Schema(
         category: String,
         rating: String,
         coverImg: String,
+        rating: {
+            weight: Number,
+            count: Number
+        },
+        users: [{ type: Schema.Types.ObjectId, ref: 'User' }]
     }
 );
 

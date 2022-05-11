@@ -1,22 +1,45 @@
 import Styles from "../styles/ListCard.module.css"
-import {useEffect} from "react"
+import { useNavigate } from "react-router-dom"
+import { UserContext } from "../contexts/UserContext"
+import React, { useContext, useEffect } from "react"
 
 const ListCard = (props) => {
+    const { removeBook, user, fetchFaves, fetchWillRead, fetchHaveRead } = useContext(UserContext)
+    const navigateHook = useNavigate()
 
-    useEffect(() => {
-           console.log("listItem", props);
-    }, [])
+    const handleClick = (id) => {
+        navigateHook(`/book/${id}`)
+    }
+
+    const handleRemove = async (bookId) => {
+        if(!user) {
+            return
+        }
+
+        let removeObj = {
+            libraryId: props.data.library._id,
+            option: props.data.option,
+            bookId
+        }
+
+       let res = await removeBook(removeObj)
+
+       if(res.success) {
+        fetchHaveRead(user._id)
+        fetchWillRead(user._id)
+        fetchFaves(user._id)
+       }
+    }
 
     return(
-        <div className={Styles.cardContainer}>
-            <div className={Styles.listTitleWrapper}>
-                <h2 className={Styles.listTitle}>{props.listItem.list}</h2>
-                <img className={Styles.booksImg} src={process.env.PUBLIC_URL + '/icons8-books-60.png'} alt="stacked books"/>
-            </div>
-            {props.listItem.books.map((book, i) => (
+        <div>
+            {props.data.arr.map((book, i) => (
                 <div className={Styles.bookWrapper} key={i}>
-                    <p className={Styles.bookTitle}>{book.Title}</p>
-                    <img className={Styles.removeBtn} src={process.env.PUBLIC_URL + '/icons8-remove-64.png'} alt="remove"/>
+                    <p className={Styles.bookTitle} onClick={() => handleClick(book._id)}>{book.title}</p>
+                    <img className={Styles.removeBtn}
+                    onClick={() => handleRemove(book._id)}
+                    src={process.env.PUBLIC_URL + '/icons8-remove-64.png'}
+                    alt="remove"/>
                 </div>
             ))}
         </div>

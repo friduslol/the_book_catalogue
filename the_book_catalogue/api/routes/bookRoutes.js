@@ -8,6 +8,7 @@ router.get("/:bookId", bookController.getBookById)
 router.post("/search", bookController.inputSearch)
 router.post("", bookController.addBook);
 router.delete("/delete/:isbn", bookController.removeBook)
+router.put("/addRating", bookController.addRating)
 
 
 module.exports = router;

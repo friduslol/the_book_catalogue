@@ -37,7 +37,10 @@ const AdminPage = () => {
             publicationYear: pubYearRef.current.value,
             pages: pagesRef.current.value,
             category: categoryRef.current.value,
-            rating: 0,
+            rating: {
+                weight: 0,
+                count: 0
+            },
             coverImg: coverImgRef.current.value ? coverImgRef.current.value : "No cover available",
         }
 

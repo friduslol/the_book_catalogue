@@ -3,7 +3,7 @@
     align-items: center;
     justify-content: center;
     background-color: var(--light--color);
-    height: 65vh;
+    height: 80vh;
 }
 
 .formWrapper {
@@ -49,14 +49,14 @@
     margin: 1rem;
 }
 
-.createBtn:hover {
+/* .createBtn:hover {
     background-color: var(--dark--color);
-}
+} */
 
 
 @media (min-width: 768px) {
     .createAccContainer {
-        height: 63vh;
+        height: 70vh;
     }
 
     .formHeader {

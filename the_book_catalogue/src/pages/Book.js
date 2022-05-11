@@ -2,27 +2,72 @@ import Styles from "../styles/Book.module.css"
 import React, { useState, useEffect, useContext } from 'react'
 import { Rating } from 'react-simple-star-rating'
 import { useParams } from "react-router-dom"
-import {  BookContext } from "../contexts/BookContext"
+import { BookContext } from "../contexts/BookContext"
+import { UserContext } from "../contexts/UserContext"
 
 const Book = (props) => {
-    const { getBookById, book } = useContext(BookContext)
-    const [rating, setRating] = useState(0)
+    const { getBookById, book, addRating } = useContext(BookContext)
+    const { user, addToLibrary } = useContext(UserContext)
     const { id } = useParams()
+    const [update, setUpdate] = useState()
+    const [ratingMsg, setRatingMsg] = useState(null)
+    const [libraryMsg, setLibraryMSg] = useState(null)
 
     useEffect(() => {
         getBookById(id)
+        // eslint-disable-next-line
     }, [])
 
     useEffect(() => {
-        console.log("book", book)
-    }, [book])
+        getBookById(id)
+        // eslint-disable-next-line
+    }, [update])
 
 
-     // Catch Rating value
-//   const handleRating = (rate: rating) => {
-//     setRating(rate)
-//     // other logic
-//   }
+    //Catch Rating value
+    const handleRating = async (newRating) => {
+        if(!user) {
+            return
+        }
+
+        book.users.map((bookUser) => {
+            if(bookUser === user._id) {
+                setRatingMsg("You have already made a rating!")
+                return
+            }
+        })
+
+        let w = book.rating.weight += 1
+        let c = book.rating.count + newRating
+        let ratingObj = {
+            rating: { weight: w, count: c },
+            id: book._id,
+            userId: user._id
+        }
+        let addRatingResult = await addRating(ratingObj)
+
+        setUpdate(addRatingResult)
+    }
+
+    const handleAddToLibrary = async (option) => {
+        if(!user) {
+            return
+        }
+
+        let optionObj = {
+            id: book._id,
+            userId: user._id,
+            option
+        }
+
+        let addToLibraryResult = await addToLibrary(optionObj)
+
+        if(addToLibraryResult.success) {
+            setLibraryMSg(addToLibraryResult.success)
+        } else {
+            setLibraryMSg(addToLibraryResult.error)
+        }
+    }
 
     return(
         <div>
@@ -36,7 +81,11 @@ const Book = (props) => {
                                 <span className={Styles.text}>Year of puplication: {book.publicationYear}</span>
                                 <span className={Styles.text}>Author: {book.author}</span>
                                 <div className={Styles.ratingWrapper}>
-                                    <Rating ratingValue={rating} /* Available Props */ />
+                                    <Rating onClick={handleRating} ratingValue={book.rating.count / book.rating.weight} /* Available Props */ />
+                                    {ratingMsg ?
+                                        (<p>{ratingMsg}</p>)
+                                    :
+                                        (<></>)}
                                 </div>
                             </div>
                             <div className={Styles.aboutWrapper}>
@@ -51,6 +100,13 @@ const Book = (props) => {
                                 <span className={Styles.text}>Pages: {book.pages}</span>
                                 <span className={Styles.text}>Category: {book.category}</span>
                             </div>
+                            <button onClick={() => handleAddToLibrary(2)}>Will read</button>
+                            <button onClick={() => handleAddToLibrary(3)}>Have Read</button>
+                            <button onClick={() => handleAddToLibrary(1)}>Favourite</button>
+                            {libraryMsg ?
+                                        (<p>{libraryMsg}</p>)
+                                    :
+                                        (<></>)}
                         </div>
                     </div>
             : <></>}

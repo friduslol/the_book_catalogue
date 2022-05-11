@@ -1,4 +1,6 @@
 const Book = require("../models/Book");
+const User = require("../models/User");
+const { param } = require("../routes/userRoutes");
 
 const addBook = async (req, res) => {
     try {
@@ -76,10 +78,37 @@ const inputSearch = async (req, res) => {
     }
 }
 
+const addRating = async (req, res) => {
+    try {
+        let user = await Book.exists(
+            { users: { $in: [req.body.userId] }}).exec()
+
+        if(user) {
+            res.status(400).json({ error: "User have already made a rating!" })
+            return
+        }
+
+        Book.updateOne(
+            { _id: req.body.id },
+            { $set: { rating: req.body.rating }}).exec()
+
+        Book.updateOne(
+            { _id: req.body.id },
+            { $addToSet: {users: req.body.userId} }).exec()
+
+        res.status(200).json({ success: "Rating updated!" })
+    } catch(err) {
+        console.log(err)
+        res.status(400).json({ error: err })
+        return
+    }
+}
+
 module.exports = {
     addBook,
     removeBook,
     getAllBooks,
     getBookById,
-    inputSearch
+    inputSearch,
+    addRating
 }
