@@ -1,6 +1,9 @@
+.bookPageContainer {
+    background-color: var(--light--color);
+}
+
 .bookContainer {
     min-height: 65vh;
-    background-color: var(--light--color);
     /* display: flex;
     flex-direction: column;
     align-items: center; */
@@ -68,6 +71,33 @@
     font-family: var(--main--font);
     color: var(--dark--color);
     line-height: 1.2rem;
+}
+
+.userActionWrapper {
+    padding-bottom: 3rem;
+}
+.userActionWrapper h2, p{
+    text-align: center;
+}
+
+.btnWrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.libraryBtn {
+    background-color: var(--theme--color);
+    border: none;
+    border-radius: 10px;
+	cursor: pointer;
+	font-size: 0.8rem;
+	font-weight: bold;
+	letter-spacing: 0.1rem;
+	padding: 0.6rem 0.7rem;
+    text-transform: uppercase;
+    color: var(--light--color);
+    margin: 0.2rem;
 }
 
 @media (min-width: 768px) {

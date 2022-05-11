@@ -70,46 +70,56 @@ const Book = (props) => {
     }
 
     return(
-        <div>
-            {book ? <div className={Styles.bookContainer}>
-                        <div className={Styles.bookCoverWrapper}>
-                            <img className={Styles.bookImg} src={book.coverImg} alt="book cover"/>
+        <div className={Styles.bookPageContainer}>
+            {book ?
+                (<div className={Styles.bookContainer}>
+                    <div className={Styles.bookCoverWrapper}>
+                        <img className={Styles.bookImg} src={book.coverImg} alt="book cover"/>
+                    </div>
+                    <div className={Styles.contentWrapper}>
+                        <div className={Styles.InfoWrapper}>
+                            <h1 className={Styles.heading}>{book.title}</h1>
+                            <span className={Styles.text}>Year of puplication: {book.publicationYear}</span>
+                            <span className={Styles.text}>Author: {book.author}</span>
+                            <div className={Styles.ratingWrapper}>
+                                <Rating onClick={handleRating} ratingValue={book.rating.count / book.rating.weight} /* Available Props */ />
+                                {ratingMsg ?
+                                    (<p>{ratingMsg}</p>)
+                                :
+                                    (<></>)}
+                            </div>
                         </div>
-                        <div className={Styles.contentWrapper}>
-                            <div className={Styles.InfoWrapper}>
-                                <h1 className={Styles.heading}>{book.title}</h1>
-                                <span className={Styles.text}>Year of puplication: {book.publicationYear}</span>
-                                <span className={Styles.text}>Author: {book.author}</span>
-                                <div className={Styles.ratingWrapper}>
-                                    <Rating onClick={handleRating} ratingValue={book.rating.count / book.rating.weight} /* Available Props */ />
-                                    {ratingMsg ?
-                                        (<p>{ratingMsg}</p>)
-                                    :
-                                        (<></>)}
-                                </div>
-                            </div>
-                            <div className={Styles.aboutWrapper}>
-                                <h2 className={Styles.smallHeading}>About the book</h2>
-                                <p className={Styles.aboutText}>{book.description}</p>
-                            </div>
-                            <div className={Styles.detailsWrapper}>
-                                <h2 className={Styles.smallHeading}>List of details</h2>
-                                <span className={Styles.text}>Author: {book.author}</span>
-                                <span className={Styles.text}>ISBN: {book.isbn}</span>
-                                <span className={Styles.text}>Year of publication: {book.publicationYear}</span>
-                                <span className={Styles.text}>Pages: {book.pages}</span>
-                                <span className={Styles.text}>Category: {book.category}</span>
-                            </div>
-                            <button onClick={() => handleAddToLibrary(2)}>Will read</button>
-                            <button onClick={() => handleAddToLibrary(3)}>Have Read</button>
-                            <button onClick={() => handleAddToLibrary(1)}>Favourite</button>
-                            {libraryMsg ?
-                                        (<p>{libraryMsg}</p>)
-                                    :
-                                        (<></>)}
+                        <div className={Styles.aboutWrapper}>
+                            <h2 className={Styles.smallHeading}>About the book</h2>
+                            <p className={Styles.aboutText}>{book.description}</p>
+                        </div>
+                        <div className={Styles.detailsWrapper}>
+                            <h2 className={Styles.smallHeading}>List of details</h2>
+                            <span className={Styles.text}>Author: {book.author}</span>
+                            <span className={Styles.text}>ISBN: {book.isbn}</span>
+                            <span className={Styles.text}>Year of publication: {book.publicationYear}</span>
+                            <span className={Styles.text}>Pages: {book.pages}</span>
+                            <span className={Styles.text}>Category: {book.category}</span>
                         </div>
                     </div>
-            : <></>}
+                </div>)
+            :
+                (<></>)}
+            {user ?
+                (<div className={Styles.userActionWrapper}>
+                    <h2 className={Styles.smallHeading}>Add this book to a Library:</h2>
+                    <div className={Styles.btnWrapper}>
+                        <button className={Styles.libraryBtn} onClick={() => handleAddToLibrary(1)}>Favourite</button>
+                        <button className={Styles.libraryBtn} onClick={() => handleAddToLibrary(2)}>Will read</button>
+                        <button className={Styles.libraryBtn} onClick={() => handleAddToLibrary(3)}>Have Read</button>
+                    </div>
+                    {libraryMsg ?
+                            (<p>{libraryMsg}</p>)
+                        :
+                            (<></>)}
+                </div>)
+            :
+                (<></>)}
         </div>
     )
 }
