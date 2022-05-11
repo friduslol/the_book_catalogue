@@ -26,7 +26,8 @@ const CreateAcc = () => {
         let userObj = {
             email: emailRef.current.value,
             userName: userNameRef.current.value,
-            password: password
+            password: password,
+            admin: false
         }
 
         setLoading(true)

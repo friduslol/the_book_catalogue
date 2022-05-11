@@ -9,6 +9,7 @@ const UserSchema = new Schema(
        Favourites: { type: Schema.Types.ObjectId, ref: "Favourites" },
        WillRead: { type: Schema.Types.ObjectId, ref: "WillRead" },
        HaveRead: { type: Schema.Types.ObjectId, ref: "HaveRead" },
+       admin: Boolean
     }
 );
 
