@@ -20,7 +20,6 @@ const Book = () => {
 
     useEffect(() => {
         getBookById(id)
-        console.log("runing")
         // eslint-disable-next-line
     }, [update])
 
@@ -85,7 +84,7 @@ const Book = () => {
                             <div className={Styles.ratingWrapper}>
                                 <Rating onClick={handleRating} ratingValue={book.rating.count / book.rating.weight} /* Available Props */ />
                                 {ratingMsg ?
-                                    <p>{ratingMsg}</p>
+                                    <p className={Styles.ratingMsg}>{ratingMsg}</p>
                                 :
                                     <></>
                                 }

@@ -41,9 +41,6 @@ const BookContextProvider = (props) => {
         try {
             let result = await fetch("/api/v1/books")
             result = await result.json()
-            if(result.length === 0) {
-                console.log("No books in database!")
-            }
             setBooks(result)
         } catch(err) {
             return err
@@ -71,7 +68,6 @@ const BookContextProvider = (props) => {
                 body: JSON.stringify(searchObj),
             })
             result = await result.json()
-            console.log("resulttt", result)
             if(result) {
                 setSerchResult(result)
                 return

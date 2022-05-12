@@ -14,10 +14,6 @@ const UserContextProvider = (props) => {
     // eslint-disable-next-line
     }, [])
 
-    useEffect(() => {
-        console.log("logged in user:", user)
-    }, [user])
-
     const getCookie = async () => {
         try {
             let result = await fetch("/api/v1/user/getCookie")
