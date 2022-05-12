@@ -1,7 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500&display=swap');
 
-
-
 * {
   margin: 0;
   padding: 0;
@@ -14,4 +12,16 @@
   --light--color: #FAF4F4;
   --gray--color: #707070;
   --lightgray--color: #B7B7B7;
+}
+
+.valid, .invalid {
+  font-family: var(--main--font);
+  color: var(--gray--color);
+  font-size: 0.80rem;
+}
+
+@media (min-width: 768px) {
+  .valid, .invalid {
+    font-size: 1.2rem;
+  }
 }
