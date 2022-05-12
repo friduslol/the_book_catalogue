@@ -43,7 +43,6 @@ const UserPage = () => {
 
                     <button className={Styles.logOutBtn} onClick={handleLogout}>Logout</button>
                 </div>
-                <button className={Styles.deleteAccBtn}>Delete Account</button>
             </div>
 
             <div className={Styles.bookListsContainer}>

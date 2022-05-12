@@ -21,19 +21,6 @@
     font-size: 1rem;
 }
 
-.deleteAccBtn {
-    all: unset;
-    font-family: var(--main--font);
-    color: var(--theme--color);
-    font-size: 0.65rem;
-    padding-right: 0.2rem;
-    padding-top: 0.2rem;
-}
-
-.deleteAccBtn:hover {
-    cursor: pointer;
-}
-
 .logOutBtn {
     all: unset;
     font-family: var(--main--font);
@@ -41,6 +28,10 @@
     color: var(--theme--color);
     font-size: 1.2rem;
     padding-top: 1rem;
+}
+
+.logOutBtn:hover {
+    cursor: pointer;
 }
 
 .cardContainer {
